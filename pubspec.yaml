@@ -1,0 +1,27 @@
+name: loomi_chalenge
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  dio: ^5.9.0
+  firebase_auth: ^6.0.1
+  firebase_core: ^4.0.0
+  flutter:
+    sdk: flutter
+  get: ^4.7.2
+  get_it: ^8.2.0
+  intl: ^0.20.2
+  shared_preferences: ^2.5.3
+  shimmer: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

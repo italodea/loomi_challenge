@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:get/utils.dart';
 import 'package:loomi_chalenge/components/custom_divider.dart';
-import 'package:loomi_chalenge/components/custom_icon_button.dart';
 import 'package:loomi_chalenge/components/custom_text_button.dart';
 import 'package:loomi_chalenge/components/custom_text_field.dart';
 import 'package:loomi_chalenge/components/cutom_button.dart';

@@ -12,6 +12,9 @@ class AppTheme {
   static const activeBorderColor = Color(0xFFAA73F0);
   static const errorColor = Color(0xFFFF4D4D);
 
+  static const textColor = Colors.white;
+  static const textColorDark = Colors.white70;
+
   static ThemeData get theme {
     return ThemeData(
       scaffoldBackgroundColor: backgroundColor,
@@ -31,66 +34,66 @@ class AppTheme {
   static TextTheme get textTheme {
     return GoogleFonts.montserratTextTheme(
       const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontSize: 16),
-        bodyMedium: TextStyle(color: Colors.white70, fontSize: 14),
-        bodySmall: TextStyle(color: Colors.white60, fontSize: 12),
+        bodyLarge: TextStyle(color: AppTheme.textColor, fontSize: 16),
+        bodyMedium: TextStyle(color: AppTheme.textColorDark, fontSize: 14),
+        bodySmall: TextStyle(color: AppTheme.textColorDark, fontSize: 12),
         displayLarge: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
         displayMedium: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
         displaySmall: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 16,
           fontWeight: FontWeight.w400,
         ),
         headlineLarge: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 32,
           fontWeight: FontWeight.bold,
         ),
         headlineMedium: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 28,
           fontWeight: FontWeight.w600,
         ),
         headlineSmall: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 24,
           fontWeight: FontWeight.w400,
         ),
         titleLarge: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
         titleMedium: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
         titleSmall: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 18,
           fontWeight: FontWeight.w400,
         ),
         labelLarge: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
         labelMedium: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
         labelSmall: TextStyle(
-          color: Colors.white,
+          color: AppTheme.textColor,
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
@@ -119,8 +122,8 @@ class AppTheme {
       ),
       filled: true,
       fillColor: backgroundInputColor,
-      suffixIconColor: Colors.white54,
-      hintStyle: textTheme.bodyMedium!.copyWith(color: Colors.white54),
+      suffixIconColor: AppTheme.textColorDark,
+      hintStyle: textTheme.bodyMedium!.copyWith(color: AppTheme.textColorDark),
       errorStyle: textTheme.bodySmall!.copyWith(color: AppTheme.errorColor),
       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
     );

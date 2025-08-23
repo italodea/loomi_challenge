@@ -18,7 +18,7 @@ class AppTheme {
   static ThemeData get theme {
     return ThemeData(
       scaffoldBackgroundColor: backgroundColor,
-      appBarTheme: AppBarTheme(backgroundColor: backgroundColor, elevation: 0),
+      appBarTheme: AppBarTheme(backgroundColor: backgroundColor, elevation: 0, toolbarHeight: 0),
       colorScheme: ColorScheme.fromSwatch().copyWith(
         primary: primaryColor,
         secondary: secondaryColor,
@@ -177,7 +177,7 @@ class AppTheme {
   static TextButtonThemeData get textButtonTheme {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.only(left: 5, right: 5, top: 2),
         foregroundColor: AppTheme.primaryColor,
         textStyle: textThemeSecondary.labelLarge,
       ),

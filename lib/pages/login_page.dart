@@ -6,6 +6,7 @@ import 'package:loomi_chalenge/components/custom_text_field.dart';
 import 'package:loomi_chalenge/components/cutom_button.dart';
 import 'package:loomi_chalenge/components/social_icon_apple.dart';
 import 'package:loomi_chalenge/components/social_icon_google.dart';
+import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
 import 'package:loomi_chalenge/utils/field_masks.dart';
 import 'package:loomi_chalenge/utils/field_validatons.dart';
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(right: 12, left: 12, top: 40),
         child: Center(
@@ -69,12 +70,13 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Enter your password",
                     obscureText: true,
                     controller: _passwordController,
+                    validator: FieldValidations.validatePassword,
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        Get.toNamed('/forgot-password');
+                        Get.toNamed(AppRoutes.forgotPassword);
                       },
                       child: Text(
                         "Forgot Password?",
@@ -120,16 +122,15 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         "Don't have an account?",
-                        style: Theme.of(context).textTheme.labelMedium!
+                        style: Theme.of(context).textTheme.bodyLarge!
                             .copyWith(
                               color: AppTheme.secondaryDarkColor,
-                              fontSize: 16,
                             ),
                       ),
                       CustomTextButton(
                         label: "Sign Up",
                         onPressed: () {
-                          Get.toNamed('/signup');
+                          Get.offNamed(AppRoutes.signup);
                         },
                       ),
                     ],

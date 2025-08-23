@@ -10,7 +10,7 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Divider(color: AppTheme.secondaryColor, thickness: 1)),
+        Expanded(child: Divider(color: AppTheme.secondaryColor, thickness: 0.5)),
         if (text != null) ...[
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
@@ -18,15 +18,15 @@ class CustomDivider extends StatelessWidget {
               text!,
               style: Theme.of(
                 context,
-              ).textTheme.bodyMedium!.copyWith(color: AppTheme.secondaryColor),
+              ).textTheme.bodySmall!.copyWith(color: AppTheme.secondaryColor),
             ),
           ),
           Expanded(
-            child: Divider(color: AppTheme.secondaryColor, thickness: 1),
+            child: Divider(color: AppTheme.secondaryColor, thickness: 0.5),
           ),
         ] else ...[
           Expanded(
-            child: Divider(color: AppTheme.secondaryColor, thickness: 1),
+            child: Divider(color: AppTheme.secondaryColor, thickness: 0.5),
           ),
         ],
       ],

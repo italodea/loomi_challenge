@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
 
 class CustomSocialIconGoogle extends StatelessWidget {
-  const CustomSocialIconGoogle({super.key});
+  const CustomSocialIconGoogle({super.key, this.onPressed});
 
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -16,9 +17,7 @@ class CustomSocialIconGoogle extends StatelessWidget {
         backgroundColor: AppTheme.primaryDarkColor,
         padding: EdgeInsets.all(15),
       ),
-      onPressed: () {
-        // Handle Google sign-in
-      },
+      onPressed: onPressed,
     );
   }
 }

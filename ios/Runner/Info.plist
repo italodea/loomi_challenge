@@ -45,5 +45,18 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+		<string>app-1-787952710825-ios-9b8e987e6e4cabeb8b25b8</string>
+		</array>
+	</dict>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Este app precisa acessar a rede local para depuração e comunicação com dispositivos na mesma rede.</string>
 </dict>
 </plist>

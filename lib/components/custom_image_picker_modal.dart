@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loomi_chalenge/components/custom_icon_button.dart';
 import 'package:loomi_chalenge/themes/app_icons.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
@@ -11,6 +12,8 @@ class CustomImagePickerModal extends StatefulWidget {
 }
 
 class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
+  final ImagePicker _imagePicker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +35,7 @@ class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
                   backgroundColor: Colors.transparent,
                   icon: Icon(Icons.arrow_back_ios, color: AppTheme.primaryColor),
                   onPressed: () {
-                    // Handle image picking
+                    Navigator.of(context).pop();
                   },
                 ),
                 Expanded(
@@ -51,8 +54,10 @@ class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
                   icon: AppIcons.icon(AppIcons.camera, color: AppTheme.primaryColor),
                   label: "Take a photo",
                   border: BorderSide(color: AppTheme.primaryColor),
-                  onPressed: () {
-                    // Handle image picking
+                  onPressed: () async {
+                    await _imagePicker.pickImage(
+                      source: ImageSource.camera
+                    );
                   },
                 ),
                 SizedBox(width: 16),
@@ -61,8 +66,10 @@ class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
                   label: "Choose from gallery",
                   backgroundColor: AppTheme.backgroundInputColor,
                   border: BorderSide(color: AppTheme.borderColor),
-                  onPressed: () {
-                    // Handle image picking
+                  onPressed: () async {
+                    await _imagePicker.pickImage(
+                      source: ImageSource.gallery
+                    );
                   },
                 ),
               ],

@@ -12,9 +12,9 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return OutlinedButton.icon(
       onPressed: widget.onPressed,
-      child: Text(widget.label),
+      label: Text(widget.label),
     );
   }
 }

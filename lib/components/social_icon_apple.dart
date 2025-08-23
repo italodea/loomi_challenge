@@ -17,7 +17,6 @@ class CustomSocialIconApple extends StatelessWidget {
         padding: EdgeInsets.all(15),
       ),
       onPressed: () {
-        // Handle Apple sign-in
       },
     );
   }

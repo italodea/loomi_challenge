@@ -12,15 +12,18 @@ class AppTheme {
   static const activeBorderColor = Color(0xFFAA73F0);
   static const errorColor = Color(0xFFFF4D4D);
 
+  static const textColor = Colors.white;
+  static const textColorDark = Color(0xFF86878B);
+
   static ThemeData get theme {
     return ThemeData(
       scaffoldBackgroundColor: backgroundColor,
-      appBarTheme: AppBarTheme(backgroundColor: backgroundColor, elevation: 0),
+      appBarTheme: AppBarTheme(backgroundColor: backgroundColor, elevation: 0, toolbarHeight: 0),
       colorScheme: ColorScheme.fromSwatch().copyWith(
         primary: primaryColor,
         secondary: secondaryColor,
       ),
-      textTheme: textTheme,
+      textTheme: textThemePrimary,
       inputDecorationTheme: inputTheme,
       outlinedButtonTheme: outlinedButtonTheme,
       iconButtonTheme: iconButtonTheme,
@@ -28,79 +31,97 @@ class AppTheme {
     );
   }
 
+  static TextTheme get textThemePrimary {
+    return GoogleFonts.montserratTextTheme(textTheme);
+  }
+
+  static TextTheme get textThemeSecondary {
+    return GoogleFonts.epilogueTextTheme(textTheme);
+  }
+
   static TextTheme get textTheme {
-    return GoogleFonts.montserratTextTheme(
-      const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontSize: 16),
-        bodyMedium: TextStyle(color: Colors.white70, fontSize: 14),
-        bodySmall: TextStyle(color: Colors.white60, fontSize: 12),
-        displayLarge: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        displayMedium: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        displaySmall: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-        headlineLarge: TextStyle(
-          color: Colors.white,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-        ),
-        headlineMedium: TextStyle(
-          color: Colors.white,
-          fontSize: 28,
-          fontWeight: FontWeight.w600,
-        ),
-        headlineSmall: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.w400,
-        ),
-        titleLarge: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        titleMedium: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        titleSmall: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-        ),
-        labelLarge: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-        labelMedium: TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        labelSmall: TextStyle(
-          color: Colors.white,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
+    return const TextTheme(
+      bodyLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w300,
+      ),
+      bodyMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w300,
+      ),
+      bodySmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w300,
+      ),
+      displayLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+      ),
+      displayMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+      displaySmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w300,
+      ),
+      headlineLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 32,
+        fontWeight: FontWeight.w700,
+      ),
+      headlineMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 28,
+        fontWeight: FontWeight.w600,
+      ),
+      headlineSmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w300,
+      ),
+      titleLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+      ),
+      titleMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+      titleSmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 18,
+        fontWeight: FontWeight.w300,
+      ),
+      labelLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      ),
+      labelMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w300,
+      ),
+      labelSmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w300,
       ),
     );
   }
 
   static InputDecorationTheme get inputTheme {
     return InputDecorationTheme(
-      labelStyle: textTheme.labelMedium,
+      labelStyle: textThemeSecondary.labelMedium,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: borderColor, width: 1),
@@ -119,9 +140,13 @@ class AppTheme {
       ),
       filled: true,
       fillColor: backgroundInputColor,
-      suffixIconColor: Colors.white54,
-      hintStyle: textTheme.bodyMedium!.copyWith(color: Colors.white54),
-      errorStyle: textTheme.bodySmall!.copyWith(color: AppTheme.errorColor),
+      suffixIconColor: AppTheme.textColorDark,
+      hintStyle: textThemeSecondary.bodyMedium!.copyWith(
+        color: AppTheme.textColorDark,
+      ),
+      errorStyle: textThemeSecondary.bodySmall!.copyWith(
+        color: AppTheme.errorColor,
+      ),
       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
     );
   }
@@ -135,6 +160,7 @@ class AppTheme {
         backgroundColor: AppTheme.primaryDarkColor,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
         minimumSize: Size(250, 48),
+        textStyle: textThemeSecondary.labelLarge,
       ),
     );
   }
@@ -143,9 +169,7 @@ class AppTheme {
     return IconButtonThemeData(
       style: IconButton.styleFrom(
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
     );
   }
@@ -153,9 +177,9 @@ class AppTheme {
   static TextButtonThemeData get textButtonTheme {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.only(left: 5, right: 5, top: 2),
         foregroundColor: AppTheme.primaryColor,
-        textStyle: textTheme.labelLarge,
+        textStyle: textThemeSecondary.labelLarge,
       ),
     );
   }

@@ -23,7 +23,7 @@ class AppTheme {
         primary: primaryColor,
         secondary: secondaryColor,
       ),
-      textTheme: textTheme,
+      textTheme: textThemePrimary,
       inputDecorationTheme: inputTheme,
       outlinedButtonTheme: outlinedButtonTheme,
       iconButtonTheme: iconButtonTheme,
@@ -31,79 +31,85 @@ class AppTheme {
     );
   }
 
+  static TextTheme get textThemePrimary {
+    return GoogleFonts.montserratTextTheme(textTheme);
+  }
+
+  static TextTheme get textThemeSecondary {
+    return GoogleFonts.epilogueTextTheme(textTheme);
+  }
+
   static TextTheme get textTheme {
-    return GoogleFonts.montserratTextTheme(
-      const TextTheme(
-        bodyLarge: TextStyle(color: AppTheme.textColor, fontSize: 16),
-        bodyMedium: TextStyle(color: AppTheme.textColorDark, fontSize: 14),
-        bodySmall: TextStyle(color: AppTheme.textColorDark, fontSize: 12),
-        displayLarge: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        displayMedium: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        displaySmall: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-        headlineLarge: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-        ),
-        headlineMedium: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 28,
-          fontWeight: FontWeight.w600,
-        ),
-        headlineSmall: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 24,
-          fontWeight: FontWeight.w400,
-        ),
-        titleLarge: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        titleMedium: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        titleSmall: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-        ),
-        labelLarge: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-        labelMedium: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        labelSmall: TextStyle(
-          color: AppTheme.textColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
+    return const TextTheme(
+      bodyLarge: TextStyle(color: AppTheme.textColor, fontSize: 16),
+      bodyMedium: TextStyle(color: AppTheme.textColorDark, fontSize: 14),
+      bodySmall: TextStyle(color: AppTheme.textColorDark, fontSize: 12),
+      displayLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+      displayMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+      displaySmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+      headlineLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+      ),
+      headlineMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 28,
+        fontWeight: FontWeight.w600,
+      ),
+      headlineSmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 24,
+        fontWeight: FontWeight.w400,
+      ),
+      titleLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+      titleSmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+      ),
+      labelLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+      labelMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+      labelSmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
       ),
     );
   }
 
   static InputDecorationTheme get inputTheme {
     return InputDecorationTheme(
-      labelStyle: textTheme.labelMedium,
+      labelStyle: textThemePrimary.labelMedium,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: borderColor, width: 1),
@@ -123,8 +129,12 @@ class AppTheme {
       filled: true,
       fillColor: backgroundInputColor,
       suffixIconColor: AppTheme.textColorDark,
-      hintStyle: textTheme.bodyMedium!.copyWith(color: AppTheme.textColorDark),
-      errorStyle: textTheme.bodySmall!.copyWith(color: AppTheme.errorColor),
+      hintStyle: textThemePrimary.bodyMedium!.copyWith(
+        color: AppTheme.textColorDark,
+      ),
+      errorStyle: textThemePrimary.bodySmall!.copyWith(
+        color: AppTheme.errorColor,
+      ),
       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
     );
   }
@@ -138,6 +148,7 @@ class AppTheme {
         backgroundColor: AppTheme.primaryDarkColor,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
         minimumSize: Size(250, 48),
+        textStyle: textThemeSecondary.labelLarge,
       ),
     );
   }
@@ -146,9 +157,7 @@ class AppTheme {
     return IconButtonThemeData(
       style: IconButton.styleFrom(
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
     );
   }
@@ -158,7 +167,7 @@ class AppTheme {
       style: TextButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 5),
         foregroundColor: AppTheme.primaryColor,
-        textStyle: textTheme.labelLarge,
+        textStyle: textThemeSecondary.labelLarge,
       ),
     );
   }

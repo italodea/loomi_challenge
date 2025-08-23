@@ -120,9 +120,11 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         "Don't have an account?",
-                        style: Theme.of(context).textTheme.labelMedium!.merge(
-                          TextStyle(color: AppTheme.secondaryDarkColor),
-                        ),
+                        style: Theme.of(context).textTheme.labelMedium!
+                            .copyWith(
+                              color: AppTheme.secondaryDarkColor,
+                              fontSize: 16,
+                            ),
                       ),
                       CustomTextButton(
                         label: "Sign Up",

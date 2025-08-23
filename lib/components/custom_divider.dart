@@ -16,9 +16,9 @@ class CustomDivider extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
               text!,
-              style: Theme.of(context).textTheme.bodyMedium!.merge(
-                TextStyle(color: AppTheme.secondaryColor),
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(color: AppTheme.secondaryColor),
             ),
           ),
           Expanded(

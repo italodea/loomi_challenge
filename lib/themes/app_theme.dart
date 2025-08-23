@@ -13,7 +13,7 @@ class AppTheme {
   static const errorColor = Color(0xFFFF4D4D);
 
   static const textColor = Colors.white;
-  static const textColorDark = Colors.white70;
+  static const textColorDark = Color(0xFF86878B);
 
   static ThemeData get theme {
     return ThemeData(
@@ -41,13 +41,25 @@ class AppTheme {
 
   static TextTheme get textTheme {
     return const TextTheme(
-      bodyLarge: TextStyle(color: AppTheme.textColor, fontSize: 16),
-      bodyMedium: TextStyle(color: AppTheme.textColorDark, fontSize: 14),
-      bodySmall: TextStyle(color: AppTheme.textColorDark, fontSize: 12),
+      bodyLarge: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w300,
+      ),
+      bodyMedium: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w300,
+      ),
+      bodySmall: TextStyle(
+        color: AppTheme.textColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w300,
+      ),
       displayLarge: TextStyle(
         color: AppTheme.textColor,
         fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
       ),
       displayMedium: TextStyle(
         color: AppTheme.textColor,
@@ -57,12 +69,12 @@ class AppTheme {
       displaySmall: TextStyle(
         color: AppTheme.textColor,
         fontSize: 16,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w300,
       ),
       headlineLarge: TextStyle(
         color: AppTheme.textColor,
         fontSize: 32,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
       ),
       headlineMedium: TextStyle(
         color: AppTheme.textColor,
@@ -72,12 +84,12 @@ class AppTheme {
       headlineSmall: TextStyle(
         color: AppTheme.textColor,
         fontSize: 24,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w300,
       ),
       titleLarge: TextStyle(
         color: AppTheme.textColor,
         fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
       ),
       titleMedium: TextStyle(
         color: AppTheme.textColor,
@@ -87,29 +99,29 @@ class AppTheme {
       titleSmall: TextStyle(
         color: AppTheme.textColor,
         fontSize: 18,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w300,
       ),
       labelLarge: TextStyle(
         color: AppTheme.textColor,
         fontSize: 16,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
       ),
       labelMedium: TextStyle(
         color: AppTheme.textColor,
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w300,
       ),
       labelSmall: TextStyle(
         color: AppTheme.textColor,
         fontSize: 12,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w300,
       ),
     );
   }
 
   static InputDecorationTheme get inputTheme {
     return InputDecorationTheme(
-      labelStyle: textThemePrimary.labelMedium,
+      labelStyle: textThemeSecondary.labelMedium,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: borderColor, width: 1),
@@ -129,10 +141,10 @@ class AppTheme {
       filled: true,
       fillColor: backgroundInputColor,
       suffixIconColor: AppTheme.textColorDark,
-      hintStyle: textThemePrimary.bodyMedium!.copyWith(
+      hintStyle: textThemeSecondary.bodyMedium!.copyWith(
         color: AppTheme.textColorDark,
       ),
-      errorStyle: textThemePrimary.bodySmall!.copyWith(
+      errorStyle: textThemeSecondary.bodySmall!.copyWith(
         color: AppTheme.errorColor,
       ),
       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),

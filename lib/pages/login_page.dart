@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Get.toNamed('/forgot_password');
+                    Get.toNamed('/forgot-password');
                   },
                   child: Text(
                     "Forgot Password?",

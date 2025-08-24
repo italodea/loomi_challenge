@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:loomi_chalenge/components/custom_icon_button.dart';
 import 'package:loomi_chalenge/themes/app_icons.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
 
 class CustomImagePickerModal extends StatefulWidget {
-  const CustomImagePickerModal({super.key});
+  const CustomImagePickerModal({
+    super.key,
+    required this.onPressCamera,
+    required this.onPressGallery,
+  });
+
+  final Future<void> Function() onPressCamera;
+
+  final Future<void> Function() onPressGallery;
 
   @override
   State<CustomImagePickerModal> createState() => _CustomImagePickerModalState();
 }
 
 class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
-  final ImagePicker _imagePicker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,10 @@ class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
               children: [
                 CustomIconButton(
                   backgroundColor: Colors.transparent,
-                  icon: Icon(Icons.arrow_back_ios, color: AppTheme.primaryColor),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: AppTheme.primaryColor,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -51,29 +60,27 @@ class _CustomImagePickerModalState extends State<CustomImagePickerModal> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomIconButton(
-                  icon: AppIcons.icon(AppIcons.camera, color: AppTheme.primaryColor),
+                  icon: AppIcons.icon(
+                    AppIcons.camera,
+                    color: AppTheme.primaryColor,
+                  ),
                   label: "Take a photo",
                   border: BorderSide(color: AppTheme.primaryColor),
-                  onPressed: () async {
-                    await _imagePicker.pickImage(
-                      source: ImageSource.camera
-                    );
-                  },
+                  onPressed: widget.onPressCamera,
                 ),
                 SizedBox(width: 16),
                 CustomIconButton(
-                  icon: AppIcons.icon(AppIcons.gallery, color: AppTheme.textColor),
+                  icon: AppIcons.icon(
+                    AppIcons.gallery,
+                    color: AppTheme.textColor,
+                  ),
                   label: "Choose from gallery",
                   backgroundColor: AppTheme.backgroundInputColor,
                   border: BorderSide(color: AppTheme.borderColor),
-                  onPressed: () async {
-                    await _imagePicker.pickImage(
-                      source: ImageSource.gallery
-                    );
-                  },
+                  onPressed: widget.onPressGallery,
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

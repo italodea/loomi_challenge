@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loomi_chalenge/errors/custom_exception.dart';
 import 'package:loomi_chalenge/repositories/dio/api.dart';
+import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 import 'package:get_storage/get_storage.dart';
 
 class SignupController extends GetxController {
-  final GetStorage storage = GetStorage();
-  final FirebaseAuthService firebaseAuthService = FirebaseAuthService();
+  final GetStorage _storage = GetStorage();
+  final FirebaseAuthService _authService = FirebaseAuthService();
   final CustomAPI customAPI = CustomAPI();
+  final ImagePicker _imagePicker = ImagePicker();
 
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -26,33 +29,25 @@ class SignupController extends GetxController {
   final shineConfirmPasswordInputBorder = true.obs;
   final List<File> userImage = <File>[].obs;
 
-  Future<void> loginWithGoogle() async {
-    try {
-      UserCredential? credentials = await firebaseAuthService.googleSignIn();
-      if (credentials != null &&
-          credentials.user != null &&
-          credentials.credential != null) {
-        // storage.write('userEmail', credentials.user?.email);
-        // storage.write('userName', credentials.user?.displayName);
-        // storage.write('accessToken', credentials.credential?.accessToken);
-        // Get.offAllNamed('/home');
+  Future<void> signInWithGoogle() async {
+    UserCredential? user = await _authService.googleSignIn();
+    if (user != null) {
+      String token = await _authService.getAuthToken() ?? "";
+      if (token.isNotEmpty) {
+        await _storage.write('accessToken', token);
+        Get.offAllNamed(AppRoutes.home);
       }
-    } catch (e) {
-      throw CustomException(e);
     }
   }
 
   Future<void> registerWithEmailAndPassword() async {
     try {
-      UserCredential user = await firebaseAuthService
-          .registerUserWithEmailAndPassword(
-            emailController.text,
-            passwordController.text,
-          );
-
-      await firebaseAuthService.updateDisplayName(
-        userNameController.text,
+      UserCredential user = await _authService.registerUserWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
       );
+
+      await _authService.updateDisplayName(userNameController.text);
 
       await customAPI.register(
         userNameController.text,
@@ -63,13 +58,40 @@ class SignupController extends GetxController {
 
       String token = user.credential?.accessToken ?? "";
 
-      token = await firebaseAuthService.getAuthToken() ?? "";
-      if(token.isNotEmpty){
-        storage.write('accessToken', token);
+      token = await _authService.getAuthToken() ?? "";
+      if (token.isNotEmpty) {
+        _storage.write('accessToken', token);
       }
     } catch (e) {
       throw CustomException(e);
     }
   }
-  
+
+  Future<void> pickImageFromGallery() async {
+    try {
+      final pickedFile = await _imagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+      if (pickedFile != null) {
+        userImage.add(File(pickedFile.path));
+      }
+      Get.back();
+    } catch (e) {
+      throw CustomException(e);
+    }
+  }
+
+  Future<void> pickImageFromCamera() async {
+    try {
+      final pickedFile = await _imagePicker.pickImage(
+        source: ImageSource.camera,
+      );
+      if (pickedFile != null) {
+        userImage.add(File(pickedFile.path));
+      }
+      Get.back();
+    } catch (e) {
+      throw CustomException(e);
+    }
+  }
 }

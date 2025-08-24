@@ -21,7 +21,6 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SignupController _signupController = Get.put(SignupController());
 
   @override
@@ -31,7 +30,7 @@ class _SignupPageState extends State<SignupPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         child: Form(
-          key: _formKey,
+          key: _signupController.formKey,
           child: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 500),
@@ -80,7 +79,7 @@ class _SignupPageState extends State<SignupPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomSocialIconGoogle(
-                        onPressed:  _signupController.loginWithGoogle,
+                        onPressed:  _signupController.signInWithGoogle,
                       ),
                       SizedBox(width: 16),
                       CustomSocialIconApple(),
@@ -120,7 +119,7 @@ class _SignupPageState extends State<SignupPage> {
                   CustomButton(
                     label: "Create Account",
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (_signupController.formKey.currentState!.validate()) {
                         Get.toNamed(
                           AppRoutes.confirmSignup,
                         );

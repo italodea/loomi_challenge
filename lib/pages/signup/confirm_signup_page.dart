@@ -19,7 +19,6 @@ class ConfirmSignupPage extends StatefulWidget {
 }
 
 class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +26,7 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(right: 12, left: 12, top: 40),
         child: Form(
-          key: _formKey,
+          key: widget.controller.completeSignUpFormKey,
           child: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 500),
@@ -84,7 +83,7 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
                   CustomButton(
                     label: "Continue",
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (widget.controller.completeSignUpFormKey.currentState!.validate()) {
                         await widget.controller.registerWithEmailAndPassword();
 
                         Get.offAllNamed(AppRoutes.home);

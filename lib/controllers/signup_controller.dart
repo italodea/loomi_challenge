@@ -21,12 +21,9 @@ class SignupController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final completeFormKey = GlobalKey<FormState>();
   final completeSignUpFormKey = GlobalKey<FormState>();
 
-  final obscurePassword = true.obs;
-  final obscureConfirmPassword = true.obs;
-  final shinePasswordInputBorder = true.obs;
-  final shineConfirmPasswordInputBorder = true.obs;
   final List<File> userImage = <File>[].obs;
 
   Future<void> signInWithGoogle() async {

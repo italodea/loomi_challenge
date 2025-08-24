@@ -19,8 +19,6 @@ class ConfirmSignupPage extends StatefulWidget {
 }
 
 class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +26,7 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(right: 12, left: 12, top: 40),
         child: Form(
-          key: _formKey,
+          key: widget.controller.completeSignUpFormKey,
           child: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 500),
@@ -58,11 +56,19 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
                   Obx(
                     () => UploadImageComponent(
                       imagePath: widget.controller.userImage.firstOrNull?.path,
-                      onTap: (){
-                        showModalBottomSheet(context: context, builder: (context) {
-                          return CustomImagePickerModal();
-                        },);
-                      }
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return CustomImagePickerModal(
+                              onPressCamera:
+                                  widget.controller.pickImageFromCamera,
+                              onPressGallery:
+                                  widget.controller.pickImageFromGallery,
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: 50),
@@ -70,20 +76,27 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
                     controller: widget.controller.userNameController,
                     title: "Your Name",
                     hintText: "Enter your name",
-                    validator: (value) => FieldValidations.validateMinimumLengh(value, "name", 3),
+                    validator: (value) =>
+                        FieldValidations.validateMinimumLengh(value, "name", 3),
                   ),
                   SizedBox(height: 50),
-                  CustomButton(label: "Continue", onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      await widget.controller.registerWithEmailAndPassword();
+                  CustomButton(
+                    label: "Continue",
+                    onPressed: () async {
+                      if (widget.controller.completeSignUpFormKey.currentState!.validate()) {
+                        await widget.controller.registerWithEmailAndPassword();
 
-                      Get.offAllNamed(AppRoutes.home);
-                    }
-                  }),
+                        Get.offAllNamed(AppRoutes.home);
+                      }
+                    },
+                  ),
                   SizedBox(height: 20),
-                  CustomTextButton(label: "Back", onPressed: () {
-                    Get.back();
-                  }),
+                  CustomTextButton(
+                    label: "Back",
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
                 ],
               ),
             ),

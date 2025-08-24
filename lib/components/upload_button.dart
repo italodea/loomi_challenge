@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loomi_chalenge/components/avatar_upload.dart';
 import 'package:loomi_chalenge/components/custom_icon_button.dart';
 import 'package:loomi_chalenge/themes/app_icons.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
@@ -24,11 +25,13 @@ class UploadImageComponent extends StatelessWidget {
         highlightColor: Colors.transparent,
         child: Row(
           children: [
-            CustomIconButton(
+            imagePath == null ? CustomIconButton(
               icon: AppIcons.icon(AppIcons.camera),
               onPressed: () {
                 onTap();
               },
+            ) : AvatarUpload(
+              imagePath: imagePath,
             ),
             const SizedBox(width: 15),
             Expanded(

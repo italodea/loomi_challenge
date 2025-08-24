@@ -94,7 +94,9 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomSocialIconGoogle(),
+                      CustomSocialIconGoogle(
+                        onPressed: _controller.signInWithGoogle,
+                      ),
                       SizedBox(width: 16),
                       CustomSocialIconApple(),
                     ],

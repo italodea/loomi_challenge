@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:loomi_chalenge/errors/custom_exception.dart';
+import 'package:loomi_chalenge/errors/google_signin_handler.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 
@@ -21,12 +24,23 @@ class SigninController extends GetxController {
 
       if (user != null) {
         String token = await _authService.getAuthToken() ?? "";
-        if(token.isNotEmpty) {
+        if (token.isNotEmpty) {
           await _storage.write('accessToken', token);
           Get.offAllNamed(AppRoutes.home);
         }
       } else {
         Get.snackbar('Login Failed', 'Invalid email or password');
+      }
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    UserCredential? user = await _authService.googleSignIn();
+    if (user != null) {
+      String token = await _authService.getAuthToken() ?? "";
+      if (token.isNotEmpty) {
+        await _storage.write('accessToken', token);
+        Get.offAllNamed(AppRoutes.home);
       }
     }
   }

@@ -25,7 +25,7 @@ class SignupController extends GetxController {
   final shineConfirmPasswordInputBorder = true.obs;
   final List<File> userImage = <File>[].obs;
 
-  void loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     try {
       UserCredential? credentials = await firebaseAuthService.googleSignIn();
       if (credentials != null &&

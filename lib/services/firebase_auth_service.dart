@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loomi_chalenge/errors/custom_exception.dart';
-import 'package:loomi_chalenge/errors/firebase_handler.dart';
 
 class FirebaseAuthService {
 
@@ -17,11 +16,7 @@ class FirebaseAuthService {
       );
       return user;
     } catch (e) {
-      if (e is FirebaseAuthException) {
-        throw CustomException(FirebaseHandler.getErrorMessage(e));
-      } else {
-        throw CustomException('Unknown authentication error: $e');
-      }
+      throw CustomException(e);
     }
   }
 
@@ -34,7 +29,7 @@ class FirebaseAuthService {
       );
       return user;
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -49,7 +44,7 @@ class FirebaseAuthService {
       final user = await firebaseAuth.signInWithCredential(credential);
       return user;
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -59,9 +54,9 @@ class FirebaseAuthService {
       if (user != null) {
         return await user.getIdToken();
       }
-      return null; // Usuário não autenticado
+      return null;
     } catch (e) {
-      throw Exception('Erro ao obter token: $e');
+      throw CustomException(e);
     }
   }
 
@@ -73,7 +68,7 @@ class FirebaseAuthService {
       }
       return null;
     } catch (e) {
-      throw Exception('Erro ao obter UID: $e');
+      throw CustomException(e);
     }
   }
 
@@ -86,7 +81,7 @@ class FirebaseAuthService {
       await user.reauthenticateWithCredential(credential);
       await user.updatePassword(newPassword.trim());
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -94,7 +89,7 @@ class FirebaseAuthService {
     try {
       await firebaseAuth.sendPasswordResetEmail(email: email.trim());
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -103,7 +98,7 @@ class FirebaseAuthService {
       await firebaseAuth.currentUser!.updateDisplayName(displayName.trim());
       await firebaseAuth.currentUser!.reload();
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -112,7 +107,7 @@ class FirebaseAuthService {
       await firebaseAuth.currentUser!.updatePhotoURL(photoURL);
       await firebaseAuth.currentUser!.reload();
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -120,7 +115,7 @@ class FirebaseAuthService {
     try {
       await firebaseAuth.signOut();
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 
@@ -128,7 +123,7 @@ class FirebaseAuthService {
     try {
       await firebaseAuth.currentUser!.delete();
     } catch (e) {
-      rethrow;
+      throw CustomException(e);
     }
   }
 }

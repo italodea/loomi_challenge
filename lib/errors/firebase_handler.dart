@@ -6,6 +6,8 @@ class FirebaseHandler {
     switch (e.code) {
       case 'invalid-credential':
         return 'Invalid authentication credential.';
+      case 'network-request-failed':
+        return 'Network error. Please try again.';
       default:
         return 'An unknown error occurred.';
     }

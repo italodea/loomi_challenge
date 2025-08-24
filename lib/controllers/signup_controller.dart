@@ -21,7 +21,6 @@ class SignupController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final completeFormKey = GlobalKey<FormState>();
   final completeSignUpFormKey = GlobalKey<FormState>();
 
   final List<File> userImage = <File>[].obs;

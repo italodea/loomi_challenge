@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String token = storage.read('accessToken') ?? '';
     return Scaffold(
       body: Center(
         child: CustomButton(label: "Sair", onPressed: () async{

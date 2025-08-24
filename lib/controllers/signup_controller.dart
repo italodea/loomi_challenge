@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loomi_chalenge/repositories/dio/api.dart';
-import 'package:loomi_chalenge/services/firebase_auth.dart';
+import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 import 'package:get_storage/get_storage.dart';
 
 class SignupController extends GetxController {
@@ -35,9 +35,6 @@ class SignupController extends GetxController {
         // storage.write('userName', credentials.user?.displayName);
         // storage.write('accessToken', credentials.credential?.accessToken);
         // Get.offAllNamed('/home');
-        print("Email: ${credentials.user?.email}");
-        print("Name: ${credentials.user?.displayName}");
-        print("Access Token: ${credentials.credential?.accessToken}");
       }
     } catch (e) {
       print("-------------ERROR-------------");

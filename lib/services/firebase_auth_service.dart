@@ -1,10 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:loomi_chalenge/errors/custom_exception.dart';
+import 'package:loomi_chalenge/errors/firebase_handler.dart';
 
 class FirebaseAuthService {
 
   final firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn googleAuth = GoogleSignIn.instance;
+
+  Future<UserCredential?> signInWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      UserCredential user = await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return user;
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        throw CustomException(FirebaseHandler.getErrorMessage(e));
+      } else {
+        throw CustomException('Unknown authentication error: $e');
+      }
+    }
+  }
 
   Future<UserCredential> registerUserWithEmailAndPassword(
       String email, String password) async {

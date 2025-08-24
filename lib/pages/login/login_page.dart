@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:loomi_chalenge/components/custom_divider.dart';
 import 'package:loomi_chalenge/components/custom_text_button.dart';
 import 'package:loomi_chalenge/components/custom_text_field.dart';
 import 'package:loomi_chalenge/components/cutom_button.dart';
 import 'package:loomi_chalenge/components/social_icon_apple.dart';
 import 'package:loomi_chalenge/components/social_icon_google.dart';
+import 'package:loomi_chalenge/controllers/signin_controller.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
 import 'package:loomi_chalenge/utils/field_masks.dart';
@@ -19,10 +20,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final SigninController _controller = Get.put(SigninController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 500),
             child: Form(
-              key: _formKey,
+              key: _controller.formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -63,13 +62,13 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Enter your email",
                     inputFormatters: FieldMasks.formatEmail(),
                     validator: FieldValidations.validateEmail,
-                    controller: _emailController,
+                    controller: _controller.emailController,
                   ),
                   CustomTextField(
                     title: "Password",
                     hintText: "Enter your password",
                     obscureText: true,
-                    controller: _passwordController,
+                    controller: _controller.passwordController,
                     validator: FieldValidations.validatePassword,
                   ),
                   Align(
@@ -87,23 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30),
                   CustomButton(
                     label: "Login",
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text('Login Successful'),
-                            content: Text('You have logged in successfully!'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                    },
+                    onPressed: _controller.signIn,
                   ),
                   SizedBox(height: 20),
                   CustomDivider(text: "Or Sign in With"),

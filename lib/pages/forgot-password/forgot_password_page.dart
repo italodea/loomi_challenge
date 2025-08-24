@@ -60,11 +60,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     controller: _emailController,
                   ),
                   AnimatedSpacer(beginHeight: 100, endHeight: 170),
-                  SizedBox(height: MediaQuery.of(context).size.height - 700),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height - 700 < 0
+                        ? 0
+                        : MediaQuery.of(context).size.height - 700,
+                  ),
                   CustomButton(
                     label: "Send Instructions",
                     onPressed: () async {
-                      Get.offNamed(AppRoutes.emailSent);
+                      if (_formKey.currentState!.validate()) {
+                        Get.offNamed(AppRoutes.emailSent);
+                      }
                     },
                   ),
                   SizedBox(height: 12),

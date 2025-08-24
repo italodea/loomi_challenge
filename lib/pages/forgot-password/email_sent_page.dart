@@ -46,7 +46,9 @@ class _EmailSentState extends State<EmailSent> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height - 550,
+                  height: MediaQuery.of(context).size.height - 550 < 0
+                      ? 0
+                      : MediaQuery.of(context).size.height - 550,
                 ),
                 AnimatedSpacer(beginHeight: 120, endHeight: 40),
                 CustomButton(

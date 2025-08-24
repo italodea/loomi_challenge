@@ -28,6 +28,7 @@ class AppTheme {
       outlinedButtonTheme: outlinedButtonTheme,
       iconButtonTheme: iconButtonTheme,
       textButtonTheme: textButtonTheme,
+      snackBarTheme: snackBarTheme,
     );
   }
 
@@ -181,6 +182,17 @@ class AppTheme {
         foregroundColor: AppTheme.primaryColor,
         textStyle: textThemeSecondary.labelLarge,
       ),
+    );
+  }
+
+  static SnackBarThemeData get snackBarTheme {
+    return SnackBarThemeData(
+      backgroundColor: AppTheme.primaryDarkColor,
+      contentTextStyle: textThemeSecondary.bodyMedium,
+      actionTextColor: AppTheme.primaryColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8), side: BorderSide(color: AppTheme.primaryColor)),
+      behavior: SnackBarBehavior.floating,
+      elevation: 6,
     );
   }
 }

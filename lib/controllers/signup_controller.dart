@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loomi_chalenge/errors/custom_exception.dart';
 import 'package:loomi_chalenge/repositories/dio/api.dart';
-import 'package:loomi_chalenge/services/firebase_auth.dart';
+import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 import 'package:get_storage/get_storage.dart';
 
 class SignupController extends GetxController {
@@ -25,7 +26,7 @@ class SignupController extends GetxController {
   final shineConfirmPasswordInputBorder = true.obs;
   final List<File> userImage = <File>[].obs;
 
-  void loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     try {
       UserCredential? credentials = await firebaseAuthService.googleSignIn();
       if (credentials != null &&
@@ -35,14 +36,9 @@ class SignupController extends GetxController {
         // storage.write('userName', credentials.user?.displayName);
         // storage.write('accessToken', credentials.credential?.accessToken);
         // Get.offAllNamed('/home');
-        print("Email: ${credentials.user?.email}");
-        print("Name: ${credentials.user?.displayName}");
-        print("Access Token: ${credentials.credential?.accessToken}");
       }
     } catch (e) {
-      print("-------------ERROR-------------");
-      print(e);
-      print("-------------ERROR-------------");
+      throw CustomException(e);
     }
   }
 
@@ -71,18 +67,9 @@ class SignupController extends GetxController {
       if(token.isNotEmpty){
         storage.write('accessToken', token);
       }
-      print("Token: $token");
     } catch (e) {
-      print("-------------ERROR-------------");
-      print(e);
-      print("-------------ERROR-------------");
+      throw CustomException(e);
     }
   }
-
-  getData(){
-    print("User Name: ${userNameController.text}");
-    print("Email: ${emailController.text}");
-    print("Password: ${passwordController.text}");
-    print("Confirm Password: ${confirmPasswordController.text}");
-  }
+  
 }

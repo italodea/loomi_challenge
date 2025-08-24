@@ -25,12 +25,9 @@ class _CustomButtonState extends State<CustomButton> {
         } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("An error occurred"),
+              content: Text(e.toString()),
             ),
           );
-          print("-------------ERROR-------------");
-          print(e);
-          print("-------------ERROR-------------");
         }
         setState(() {
           _isLoading = false;

@@ -39,8 +39,5 @@ class CustomAPI extends BaseRequest {
       "password": password,
       "firebase_UID": firebaseUID
     });
-    print("========data========");
-    print(data);
-    print("========data========");
   }
 }

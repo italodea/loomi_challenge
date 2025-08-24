@@ -80,9 +80,7 @@ class _SignupPageState extends State<SignupPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomSocialIconGoogle(
-                        onPressed: () {
-                          _signupController.loginWithGoogle();
-                        },
+                        onPressed:  _signupController.loginWithGoogle,
                       ),
                       SizedBox(width: 16),
                       CustomSocialIconApple(),

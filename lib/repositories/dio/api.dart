@@ -5,7 +5,7 @@ import 'package:loomi_chalenge/repositories/models/dto/user_auth.dart';
 
 class CustomAPI extends BaseRequest {
 
-  CustomAPI() : super("https://dummyjson.com/");
+  CustomAPI() : super("http://localhost:3000/api");
 
 
   Future<UserAuth> login(String username, String password) async {
@@ -30,5 +30,17 @@ class CustomAPI extends BaseRequest {
     });
 
     return UserAuth.fromJson(response);
+  }
+
+  Future<void> register(String username, String email, String password, String firebaseUID) async {
+    var data = await post("/auth/local/register", data: {
+      "username": username,
+      "email": email,
+      "password": password,
+      "firebase_UID": firebaseUID
+    });
+    print("========data========");
+    print(data);
+    print("========data========");
   }
 }

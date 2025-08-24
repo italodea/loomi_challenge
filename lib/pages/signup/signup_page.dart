@@ -21,9 +21,6 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final SignupController _signupController = Get.put(SignupController());
 
@@ -101,22 +98,22 @@ class _SignupPageState extends State<SignupPage> {
                     hintText: "Enter your email",
                     inputFormatters: FieldMasks.formatEmail(),
                     validator: FieldValidations.validateEmail,
-                    controller: _emailController,
+                    controller: _signupController.emailController,
                   ),
                   CustomTextField(
                     title: "Password",
                     hintText: "Enter your password",
                     obscureText: true,
-                    controller: _passwordController,
+                    controller: _signupController.passwordController,
                     validator: FieldValidations.validatePassword,
                   ),
                   CustomTextField(
                     title: "Confirm Password",
                     hintText: "Confirm your password",
                     obscureText: true,
-                    controller: _confirmPasswordController,
+                    controller: _signupController.confirmPasswordController,
                     validator: (value) => FieldValidations.validateEqualPassword(
-                      _passwordController.text,
+                      _signupController.passwordController.text,
                       value,
                     ),
                   ),
@@ -124,13 +121,10 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 20),
                   CustomButton(
                     label: "Create Account",
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         Get.toNamed(
                           AppRoutes.confirmSignup,
-                          arguments: {
-                            'userId': '123', // Replace with actual user ID
-                          },
                         );
                       }
                     },

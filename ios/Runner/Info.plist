@@ -53,6 +53,7 @@
 		<key>CFBundleURLSchemes</key>
 		<array>
 		<string>app-1-787952710825-ios-9b8e987e6e4cabeb8b25b8</string>
+	<string>com.googleusercontent.apps.247959645506-sc43btf6uukt4q8ejg5aa68j9vr5a14v</string>
 		</array>
 	</dict>
 	</array>
@@ -64,5 +65,7 @@
 	<string>Este app precisa acessar sua câmera.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Este app precisa acessar seu microfone.</string>
+	<key>GIDClientID</key>
+	<string>247959645506-sc43btf6uukt4q8ejg5aa68j9vr5a14v.apps.googleusercontent.com</string>
 </dict>
 </plist>

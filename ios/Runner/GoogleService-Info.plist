@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>787952710825-cbfuaot1jgmg3msq0amdto8l4suj452v.apps.googleusercontent.com</string>
+	<string>247959645506-sc43btf6uukt4q8ejg5aa68j9vr5a14v.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.787952710825-cbfuaot1jgmg3msq0amdto8l4suj452v</string>
+	<string>com.googleusercontent.apps.247959645506-sc43btf6uukt4q8ejg5aa68j9vr5a14v</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDnRTXKUwPXCDSNbIEmu_9Uwkbb3SVuOcM</string>
+	<string>AIzaSyATRyfY0LHhVO_OSvYMHydsdnOYLy0OqBs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>787952710825</string>
+	<string>247959645506</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.app.untold</string>
+	<string>com.example.loomiChalenge</string>
 	<key>PROJECT_ID</key>
-	<string>untold-app-prod</string>
+	<string>testloomi-413f5</string>
 	<key>STORAGE_BUCKET</key>
-	<string>untold-app-prod.appspot.com</string>
+	<string>testloomi-413f5.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:787952710825:ios:9b8e987e6e4cabeb8b25b8</string>
+	<string>1:247959645506:ios:a035f42821715ad0636cdb</string>
 </dict>
 </plist>

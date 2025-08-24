@@ -2,9 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:loomi_chalenge/errors/custom_exception.dart';
-import 'package:loomi_chalenge/errors/google_signin_handler.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 

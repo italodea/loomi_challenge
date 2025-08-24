@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30),
                   CustomButton(
                     label: "Login",
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         showDialog(
                           context: context,

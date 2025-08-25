@@ -11,7 +11,7 @@ class BaseRequest {
     _dio.options.headers['Authorization'] = 'Bearer $token';
   }
 
-  Future<Map<String, dynamic>> get(String endpoint, {Map<String, dynamic>? queryParameters}) async {
+  Future<dynamic> get(String endpoint, {Map<String, dynamic>? queryParameters}) async {
     try {
       final response = await _dio.get('$baseUrl$endpoint', queryParameters: queryParameters);
       return response.data;

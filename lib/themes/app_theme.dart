@@ -59,18 +59,18 @@ class AppTheme {
       ),
       displayLarge: TextStyle(
         color: AppTheme.textColor,
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: FontWeight.w700,
       ),
       displayMedium: TextStyle(
         color: AppTheme.textColor,
-        fontSize: 20,
+        fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
       displaySmall: TextStyle(
         color: AppTheme.textColor,
-        fontSize: 16,
-        fontWeight: FontWeight.w300,
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
       ),
       headlineLarge: TextStyle(
         color: AppTheme.textColor,

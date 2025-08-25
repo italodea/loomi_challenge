@@ -1,6 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:loomi_chalenge/pages/forgot-password/email_sent_page.dart';
-import 'package:loomi_chalenge/pages/home/home.dart';
+import 'package:loomi_chalenge/pages/home/home_page.dart';
 import 'package:loomi_chalenge/pages/signup/confirm_signup_page.dart';
 import 'package:loomi_chalenge/pages/forgot-password/forgot_password_page.dart';
 import 'package:loomi_chalenge/pages/login/login_page.dart';

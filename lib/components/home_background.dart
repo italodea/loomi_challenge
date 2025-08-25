@@ -20,49 +20,46 @@ class _HomeBackgroundState extends State<HomeBackground> {
 
   @override
   Widget build(BuildContext context) {
-    final videoController = controller.videoPlayerController.value;
-    if (videoController == null) {
-      return _loadingEffect();
-    }
-    return Stack(
-      children: [
-        Obx(() {
-          final value = controller.playerStatus.value;
-          if (value == PlayerStatus.playing) {
-            return SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.cover,
-                child: SizedBox(
-                  width: videoController.value.size.width,
-                  height: videoController.value.size.height,
-                  child: VideoPlayer(videoController),
+    return Obx(() {
+      final videoController = controller.videoPlayerController.value;
+      if (videoController == null) {
+        return _loadingEffect();
+      }
+      return Stack(
+        children: [
+          controller.playerStatus.value == PlayerStatus.playing
+              ? SizedBox.expand(
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: videoController.value.size.width,
+                      height: videoController.value.size.height,
+                      child: VideoPlayer(videoController),
+                    ),
+                  ),
+                )
+              : Image.network(
+                  controller.getCurrentMovie()!.poster.url,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
                 ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [Colors.black87, Colors.transparent],
               ),
-            );
-          } else {
-            return Image.network(
-              controller.getCurrentMovie()!.poster.url,
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-            );
-          }
-        }),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Colors.black87, Colors.transparent],
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+              child: SizedBox.expand(child: Container()),
             ),
           ),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
-            child: SizedBox.expand(child: Container()),
-          ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   Widget _loadingEffect() {

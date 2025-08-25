@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:loomi_chalenge/components/custom_circle_avatar.dart';
 import 'package:loomi_chalenge/components/home_background.dart';
 import 'package:loomi_chalenge/components/movie_poster_component.dart';
 import 'package:loomi_chalenge/controllers/home_controller.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(width: 30),
                       Center(
@@ -45,11 +46,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Center(
-                        child: Image.asset(
-                          'assets/img/logo_minimal.png',
-                          width: 30,
-                          height: 30,
-                        ),
+                        child: CustomCircleAvatar(),
                       ),
                     ],
                   ),

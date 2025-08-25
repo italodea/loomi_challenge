@@ -13,8 +13,7 @@ class HomeController extends GetxController {
 
   final RxList<Movie> movies = <Movie>[].obs;
   final Rx<PlayerStatus> playerStatus = PlayerStatus.paused.obs;
-  final Rxn<VideoPlayerController> videoPlayerController =
-      Rxn<VideoPlayerController>();
+  final Rxn<VideoPlayerController> videoPlayerController = Rxn<VideoPlayerController>();
   final RxInt currentIndex = 0.obs;
 
   @override
@@ -30,64 +29,63 @@ class HomeController extends GetxController {
         final fetchedMovies = await api.getMovies(token);
         movies.assignAll(fetchedMovies);
         if (movies.isNotEmpty) {
-          await updateVideoController();
+          await _initializeVideoPlayer(movies[currentIndex.value].streamLink);
         }
       }
     } catch (e) {
-      // Handle error (e.g., show snackbar)
+      // Handle error, e.g. show snackbar
+      print('Error fetching movies: $e');
     }
   }
 
-  Movie? getCurrentMovie() =>
-      movies.isNotEmpty ? movies[currentIndex.value] : null;
+  Movie? getCurrentMovie() => movies.isNotEmpty ? movies[currentIndex.value] : null;
 
   Future<void> nextIndex() async {
-    if (movies.isEmpty) return;
-    currentIndex.value = (currentIndex.value + 1) % movies.length;
-    await disposeVideoController();
-    await updateVideoController();
+    playerStatus.value = PlayerStatus.paused;
+    await _disposeVideoPlayer();
+
+    if (currentIndex.value < movies.length - 1) {
+      currentIndex.value++;
+    } else {
+      currentIndex.value = 0;
+    }
+
+    await _initializeVideoPlayer(movies[currentIndex.value].streamLink);
     update();
   }
 
-  Future<void> disposeVideoController() async {
+  Future<void> _initializeVideoPlayer(String url) async {
+    final controller = VideoPlayerController.networkUrl(
+      Uri.parse(url),
+      viewType: VideoViewType.platformView,
+    );
+    videoPlayerController.value = controller;
+    await controller.initialize().then((_) {
+      Future.delayed(const Duration(seconds: 2), () {
+        controller.play();
+        playerStatus.value = PlayerStatus.playing;
+        update();
+      });
+    });
+    controller.setLooping(false);
+    controller.setVolume(0);
+    controller.setPlaybackSpeed(5); // Use normal speed
+    controller.addListener(() {
+      if (controller.value.position >= controller.value.duration &&
+          controller.value.isInitialized &&
+          !controller.value.isPlaying) {
+        nextIndex();
+      }
+    });
+    playerStatus.value = PlayerStatus.paused;
+  }
+
+  Future<void> _disposeVideoPlayer() async {
     final controller = videoPlayerController.value;
     if (controller != null) {
       await controller.dispose();
       videoPlayerController.value = null;
     }
-  }
-
-  void playVideo() {
-    Future.delayed(const Duration(milliseconds: 2000), () {
-      final controller = videoPlayerController.value;
-      if (controller != null) {
-        controller.play();
-        playerStatus.value = PlayerStatus.playing;
-      }
-    });
-  }
-
-  Future<void> updateVideoController() async {
-    playerStatus.value = PlayerStatus.paused;
-    final movie = getCurrentMovie();
-    if (movie == null) return;
-    final controller = VideoPlayerController.networkUrl(
-      Uri.parse(movie.streamLink),
-      viewType: VideoViewType.platformView,
-    );
-    videoPlayerController.value = controller;
-    await controller.initialize();
-    controller.setLooping(false);
-    controller.setVolume(0);
-    controller.addListener(() {
-      final value = controller.value;
-      if (value.position >= value.duration &&
-          value.isInitialized &&
-          !value.isPlaying) {
-        nextIndex();
-      }
-    });
-    playVideo();
   }
 
   Future<void> logout() async {
@@ -96,9 +94,19 @@ class HomeController extends GetxController {
     Get.offAllNamed('/login');
   }
 
+  Future<void> getCurrentUser() async {
+    final token = await authService.getAuthToken();
+    if (token != null) {
+      final tokenParts = token.split('.');
+      for (var part in tokenParts) {
+        print(part);
+      }
+    }
+  }
+
   @override
   void onClose() {
-    disposeVideoController();
+    _disposeVideoPlayer();
     super.onClose();
   }
 }

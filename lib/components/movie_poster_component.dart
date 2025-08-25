@@ -23,11 +23,6 @@ class _MoviePosterComponentState extends State<MoviePosterComponent> {
 
   @override
   Widget build(BuildContext context) {
-    final videoController = controller.videoPlayerController.value;
-    if (videoController == null) {
-      return _loadingEffect(context);
-    }
-
     return SizedBox(
       height: MediaQuery.of(context).size.height - 200 < 400
           ? MediaQuery.of(context).size.height - 170
@@ -36,6 +31,10 @@ class _MoviePosterComponentState extends State<MoviePosterComponent> {
       child: Stack(
         children: [
           Obx(() {
+            final videoController = controller.videoPlayerController.value;
+            if (videoController == null) {
+              return _loadingEffect(context);
+            }
             final value = controller.playerStatus.value;
             if (value == PlayerStatus.playing) {
               return ClipRRect(

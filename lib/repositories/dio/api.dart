@@ -1,4 +1,5 @@
 import 'package:loomi_chalenge/repositories/dio/base_request.dart';
+import 'package:loomi_chalenge/repositories/models/data/movie.dart';
 import 'package:loomi_chalenge/repositories/models/data/user.dart';
 import 'package:loomi_chalenge/repositories/models/dto/user_auth.dart';
 
@@ -39,5 +40,12 @@ class CustomAPI extends BaseRequest {
       "password": password,
       "firebase_UID": firebaseUID
     });
+  }
+
+  Future<List<Movie>> getMovies(String token) async{
+    setAuthorization(token);
+    List<dynamic> moviesList = await get("/movies");
+
+    return moviesList.map((movie) => Movie.fromJson(movie)).toList();
   }
 }

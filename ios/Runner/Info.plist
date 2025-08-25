@@ -67,5 +67,11 @@
 	<string>Este app precisa acessar seu microfone.</string>
 	<key>GIDClientID</key>
 	<string>247959645506-sc43btf6uukt4q8ejg5aa68j9vr5a14v.apps.googleusercontent.com</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+
 </dict>
 </plist>

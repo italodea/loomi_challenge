@@ -42,13 +42,16 @@ class _MoviePosterComponentState extends State<MoviePosterComponent> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    clipBehavior: Clip.none,
-                    child: SizedBox(
-                      width: videoController.value.size.width,
-                      height: videoController.value.size.height,
-                      child: VideoPlayer(videoController),
+                  child: OverflowBox(
+                    maxWidth: videoController.value.size.width,
+                    maxHeight: videoController.value.size.height,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: videoController.value.size.width,
+                        height: videoController.value.size.height,
+                        child: VideoPlayer(videoController),
+                      ),
                     ),
                   ),
                 ),

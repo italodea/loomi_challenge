@@ -6,6 +6,15 @@ class AppIcons {
   static const String gallery = 'assets/icons/gallery.svg';
   static const String like = 'assets/icons/like.svg';
   static const String send = 'assets/icons/send.svg';
+  static const String pause = 'assets/icons/pause.svg';
+  static const String backward = 'assets/icons/backward_15.svg';
+  static const String forward = 'assets/icons/forward_15.svg';
+  static const String fullscreen = 'assets/icons/full_screen.svg';
+  static const String subtitles = 'assets/icons/subtitles.svg';
+  static const String flag = 'assets/icons/flag.svg';
+  static const String trash = 'assets/icons/trash.svg';
+  static const String report = 'assets/icons/report.svg';
+  static const String comment = 'assets/icons/comment.svg';
 
   static Widget icon(
     String assetPath, {

@@ -24,6 +24,7 @@ class HomeController extends GetxController {
 
   Future<void> getMovies() async {
     try {
+      await Future.delayed(const Duration(seconds: 2));
       final token = await authService.getAuthToken();
       if (token != null) {
         final fetchedMovies = await api.getMovies(token);

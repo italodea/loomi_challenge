@@ -28,9 +28,6 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 12, left: 12, top: 70),
             child: Obx(() {
               if (_controller.movies.isEmpty) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
               }
               return Column(
                 children: [

@@ -44,17 +44,16 @@ class SignupController extends GetxController {
       );
 
       await _authService.updateDisplayName(userNameController.text);
+      String token =  await _authService.getAuthToken() ?? "";
 
       await customAPI.register(
+        token,
         userNameController.text,
         emailController.text,
-        passwordController.text,
         user.user?.uid ?? "",
       );
 
-      String token = user.credential?.accessToken ?? "";
 
-      token = await _authService.getAuthToken() ?? "";
       if (token.isNotEmpty) {
         _storage.write('accessToken', token);
       }

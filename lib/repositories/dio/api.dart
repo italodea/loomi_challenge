@@ -33,11 +33,11 @@ class CustomAPI extends BaseRequest {
     return UserAuth.fromJson(response);
   }
 
-  Future<void> register(String username, String email, String password, String firebaseUID) async {
-    var data = await post("/auth/local/register", data: {
+  Future<void> register(String token, String username, String email, String firebaseUID) async {
+    setAuthorization(token);
+    await post("/auth/local/register", data: {
       "username": username,
       "email": email,
-      "password": password,
       "firebase_UID": firebaseUID
     });
   }

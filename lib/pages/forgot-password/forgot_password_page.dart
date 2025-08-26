@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:loomi_chalenge/components/animated_spacer.dart';
 import 'package:loomi_chalenge/components/custom_text_button.dart';
 import 'package:loomi_chalenge/components/custom_text_field.dart';
 import 'package:loomi_chalenge/components/cutom_button.dart';
+import 'package:loomi_chalenge/controllers/forgot_password_controller.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/utils/field_masks.dart';
 import 'package:loomi_chalenge/utils/field_validatons.dart';
@@ -17,7 +18,9 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final ForgotPasswordController _controller = Get.put(
+    ForgotPasswordController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     hintText: "Enter your email",
                     inputFormatters: FieldMasks.formatEmail(),
                     validator: FieldValidations.validateEmail,
-                    controller: _emailController,
+                    controller: _controller.emailController,
                   ),
                   AnimatedSpacer(beginHeight: 100, endHeight: 170),
                   SizedBox(
@@ -69,6 +72,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     label: "Send Instructions",
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        await _controller.sendPasswordResetEmail();
                         Get.offNamed(AppRoutes.emailSent);
                       }
                     },

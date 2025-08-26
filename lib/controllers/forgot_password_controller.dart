@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loomi_chalenge/errors/custom_exception.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 
 class ForgotPasswordController extends GetxController {
@@ -11,8 +12,8 @@ class ForgotPasswordController extends GetxController {
   Future<void> sendPasswordResetEmail() async {
     try {
       await _firebaseAuthService.sendPasswordResetEmail(emailController.text);
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to send password reset email');
+      } catch (e) {
+        throw CustomException(e);
     }
   }
 }

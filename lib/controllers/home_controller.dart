@@ -4,12 +4,14 @@ import 'package:loomi_chalenge/repositories/dio/api.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_status.dart';
 import 'package:loomi_chalenge/repositories/models/data/movie.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
+import 'package:loomi_chalenge/services/local_auth.dart';
 import 'package:video_player/video_player.dart';
 
 class HomeController extends GetxController {
   final GetStorage storage = GetStorage();
   final FirebaseAuthService authService = FirebaseAuthService();
   final CustomAPI api = CustomAPI();
+  final LocalAuth localAuth = LocalAuth();
 
   final RxList<Movie> movies = <Movie>[].obs;
   final Rx<PlayerStatus> playerStatus = PlayerStatus.paused.obs;
@@ -18,8 +20,17 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    _checkAuth();
+
     super.onInit();
     getMovies();
+  }
+
+  void _checkAuth() async {
+    final isAuth = await localAuth.checkAuth();
+    if (!isAuth) {
+      Get.offAllNamed('/login');
+    }
   }
 
   Future<void> getMovies() async {
@@ -62,11 +73,13 @@ class HomeController extends GetxController {
     );
     videoPlayerController.value = controller;
     await controller.initialize().then((_) {
-      Future.delayed(const Duration(seconds: 2), () {
-        controller.play();
-        playerStatus.value = PlayerStatus.playing;
-        update();
-      });
+      if(videoPlayerController != null) {
+        Future.delayed(const Duration(seconds: 2), () {
+          controller.play();
+          playerStatus.value = PlayerStatus.playing;
+          update();
+        });
+      }
     });
     controller.setLooping(false);
     controller.setVolume(0);

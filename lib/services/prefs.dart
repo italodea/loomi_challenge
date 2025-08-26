@@ -5,14 +5,14 @@ class Prefs {
   final GetStorage _storage = GetStorage();
 
   Future<void> saveToken(String token) async{
-    await _storage.write('token', token);
+    await _storage.write('accessToken', token);
   }
 
   Future<String?> getToken() async {
-    return _storage.read('token');
+    return _storage.read('accessToken');
   }
 
   Future<void> deleteToken() async {
-    await _storage.remove('token');
+    await _storage.remove('accessToken');
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loomi_chalenge/errors/firebase_handler.dart';
@@ -10,7 +12,9 @@ class CustomException implements Exception {
       message = GoogleSignInHandler.getErrorMessage(error.code);
     } else if (error is FirebaseAuthException) {
       message = FirebaseHandler.getErrorMessage(error);
-    } else{
+    } else if (error is CustomException){
+      message = error.message;
+    } else {
       message = 'Unknown error';
     }
   }

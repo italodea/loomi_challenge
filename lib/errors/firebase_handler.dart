@@ -8,6 +8,8 @@ class FirebaseHandler {
         return 'Invalid authentication credential.';
       case 'network-request-failed':
         return 'Network error. Please try again.';
+      case 'email-already-in-use':
+        return 'Email is already in use.';
       default:
         return 'An unknown error occurred.';
     }

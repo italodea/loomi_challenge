@@ -99,7 +99,7 @@ class _MoviePosterComponentState extends State<MoviePosterComponent> {
         height: MediaQuery.of(context).size.height - 200,
         width: double.infinity,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        child: Column(children: [Expanded(child: MoviePosterFooter())]),
+        child: Column(children: []),
       ),
     );
   }

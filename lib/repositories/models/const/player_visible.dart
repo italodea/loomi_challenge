@@ -1,0 +1,4 @@
+enum PlayerVisible {
+  visible,
+  hidden,
+}

@@ -27,11 +27,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 12, left: 12, top: 70),
             child: Obx(() {
-              if (_controller.movies.isEmpty) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+              if (_controller.movies.isEmpty) {}
               return Column(
                 children: [
                   Row(
@@ -46,7 +42,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Center(
-                        child: CustomCircleAvatar(),
+                        child: InkWell(
+                          child: CustomCircleAvatar(),
+                          onTap: _controller.logout,
+                        ),
                       ),
                     ],
                   ),

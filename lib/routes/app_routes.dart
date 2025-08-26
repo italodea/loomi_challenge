@@ -5,6 +5,7 @@ import 'package:loomi_chalenge/pages/signup/confirm_signup_page.dart';
 import 'package:loomi_chalenge/pages/forgot-password/forgot_password_page.dart';
 import 'package:loomi_chalenge/pages/login/login_page.dart';
 import 'package:loomi_chalenge/pages/signup/signup_page.dart';
+import 'package:loomi_chalenge/pages/watch-movie/watch_movie_page.dart';
 
 class AppRoutes {
   // Route names as constants
@@ -14,6 +15,7 @@ class AppRoutes {
   static const emailSent = '/email-sent';
   static const signup = '/signup';
   static const confirmSignup = '/confirm-signup';
+  static const watchMovie = '/watch-movie';
 
   // Centralized list of all routes
   static final List<GetPage> routes = [
@@ -45,6 +47,11 @@ class AppRoutes {
     GetPage(
       name: home,
       page: () => const HomePage(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: watchMovie,
+      page: () => const WatchMoviePage(),
       transition: Transition.fadeIn,
     ),
   ];

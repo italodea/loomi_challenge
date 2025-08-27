@@ -22,7 +22,6 @@ class _CustomCircleAvatarState extends State<CustomCircleAvatar> {
 
   @override
   Widget build(BuildContext context) {
-    print("widget.imageUrl: ${widget.imageUrl}");
     return CircleAvatar(
       maxRadius: 20,
       backgroundColor:

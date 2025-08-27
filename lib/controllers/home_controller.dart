@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -56,7 +58,7 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       // Handle error, e.g. show snackbar
-      print('Error fetching movies: $e');
+      log('Error fetching movies: $e');
     }
   }
 
@@ -123,7 +125,7 @@ class HomeController extends GetxController {
     if (token != null) {
       final tokenParts = token.split('.');
       for (var part in tokenParts) {
-        print(part);
+        log(part);
       }
     }
   }

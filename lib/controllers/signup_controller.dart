@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -111,7 +112,7 @@ class SignupController extends GetxController {
     if (token != null) {
       final tokenParts = token.split('.');
       for (var part in tokenParts) {
-        print(part);
+        log(part);
       }
     }
   }

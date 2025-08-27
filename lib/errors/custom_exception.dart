@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loomi_chalenge/errors/firebase_handler.dart';
+import 'package:loomi_chalenge/errors/firestore_handler.dart';
 import 'package:loomi_chalenge/errors/google_signin_handler.dart';
 import 'package:loomi_chalenge/errors/unsupported_error_handler.dart';
 
@@ -16,12 +19,12 @@ class CustomException implements Exception {
       message = error.message;
     } else if (error is UnsupportedError){
       message = UnsupportedErrorHandler.getErrorMessage(error);
-    } 
-    
-    else {
+    } else if (error is FirebaseException) {
+      message = FirestoreHandler.getErrorMessage(error);
+    } else {
       if(kDebugMode) {
-        print('Type: ${error.runtimeType}');
-        print('Unknown error: $error');
+        log('Type: ${error.runtimeType}');
+        log('Unknown error: $error');
       }
       message = 'Unknown error';
     }

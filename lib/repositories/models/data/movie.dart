@@ -36,9 +36,8 @@ class Movie {
       genre: json['genre'] as String,
       endDate: DateTime.parse(json['endDate'] as String),
       poster: MoviePoster.fromJson(json['poster']),
-      lastComment: json['lastComment'] != null
-          ? Comment.fromJson(json['lastComment'])
-          : null,
+      lastComment:
+           null,
       commentsCount: int.parse(json['commentsCount']),
     );
   }

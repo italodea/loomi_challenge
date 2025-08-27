@@ -30,6 +30,7 @@ class MainApp extends StatelessWidget {
           : AppRoutes.login,
       getPages: AppRoutes.routes,
       enableLog: true,
+      
     );
   }
 }

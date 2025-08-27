@@ -61,7 +61,7 @@ class PlayerInterface extends StatelessWidget {
                           SizedBox(width: 12),
                           PlayerButton(
                             icon: AppIcons.comment,
-                            label: "Comments 324",
+                            label: "Comments ${controller.movie?.commentsCount ?? 0}",
                             onPressed: () async {
                               controller.toggleComments();
                             },
@@ -122,7 +122,7 @@ class PlayerInterface extends StatelessWidget {
                     ),
                     Text(
                       controller.formatDuration(
-                        controller.totalDuration.value ?? Duration.zero,
+                        controller.totalDuration.value,
                       ),
                       style: AppTheme.textThemeSecondary.labelLarge,
                     ),

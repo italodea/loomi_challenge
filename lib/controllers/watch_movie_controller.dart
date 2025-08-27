@@ -3,72 +3,72 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:loomi_chalenge/repositories/dio/api.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_fill.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_visible.dart';
+import 'package:loomi_chalenge/repositories/models/data/comment.dart';
 import 'package:loomi_chalenge/repositories/models/data/movie.dart';
+import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 import 'package:video_player/video_player.dart';
 
 class WatchMovieController extends GetxController {
   WatchMovieController(this.movie);
 
-  final Rxn<VideoPlayerController> videoPlayerController =
-      Rxn<VideoPlayerController>();
   final Movie? movie;
 
-  final Rxn<Duration> currentPosition = Rxn<Duration>();
-  final Rxn<Duration> totalDuration = Rxn<Duration>();
+  final videoPlayerController = Rxn<VideoPlayerController>();
+  final currentPosition = Rx<Duration>(Duration.zero);
+  final totalDuration = Rx<Duration>(Duration.zero);
 
-  final Rxn<PlayerVisible> playerVisible = Rxn<PlayerVisible>();
-  final Rxn<PlayerVisible> configVisible = Rxn<PlayerVisible>(
-    PlayerVisible.hidden,
-  );
-  final Rxn<PlayerVisible> commentsVisible = Rxn<PlayerVisible>(
-    PlayerVisible.hidden,
-  );
+  final playerVisible = Rx<PlayerVisible>(PlayerVisible.hidden);
+  final configVisible = Rx<PlayerVisible>(PlayerVisible.hidden);
+  final commentsVisible = Rx<PlayerVisible>(PlayerVisible.hidden);
 
-  final Rxn<int> videoWidth = Rxn<int>(0);
-  final Rxn<int> videoHeight = Rxn<int>(0);
-  final Rxn<PlayerFill> playerFill = Rxn<PlayerFill>(PlayerFill.contain);
+  final videoWidth = Rx<int>(0);
+  final videoHeight = Rx<int>(0);
+  final playerFill = Rx<PlayerFill>(PlayerFill.contain);
+  final comments = Rx<List<Comment>>([]);
+
+  final CustomAPI api = CustomAPI();
+  final FirebaseAuthService firebaseAuthService = FirebaseAuthService();
 
   Timer? _idleTimer;
 
   @override
   void onInit() {
     super.onInit();
-    setHorizontal();
+    _setHorizontal();
     _initializeVideoPlayer();
-    idleInterface();
+    _idleInterface();
   }
 
-  void _initializeVideoPlayer() {
-    if (movie != null) {
-      videoPlayerController.value = VideoPlayerController.networkUrl(
-        Uri.parse(movie!.streamLink),
-      );
-      videoPlayerController.value!.initialize().then((_) {
-        videoPlayerController.value!.play();
-        totalDuration.value = videoPlayerController.value!.value.duration;
-        videoWidth.value = videoPlayerController.value!.value.size.width
-            .toInt();
-        videoHeight.value = videoPlayerController.value!.value.size.height
-            .toInt();
-        update();
-      });
+  Future<void> _initializeVideoPlayer() async {
+    if (movie == null) return;
 
-      videoPlayerController.value!.addListener(() {
-        currentPosition.value = videoPlayerController.value!.value.position;
-      });
-    }
+    final controller = VideoPlayerController.networkUrl(Uri.parse(movie!.streamLink));
+    videoPlayerController.value = controller;
+
+    await controller.initialize();
+    controller.play();
+    totalDuration.value = controller.value.duration;
+    videoWidth.value = controller.value.size.width.toInt();
+    videoHeight.value = controller.value.size.height.toInt();
+
+    controller.addListener(() {
+      currentPosition.value = controller.value.position;
+    });
+
+    update();
   }
 
-  void setHorizontal() {
+  void _setHorizontal() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
   }
 
-  void setVertical() {
+  void _setVertical() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -76,19 +76,17 @@ class WatchMovieController extends GetxController {
   }
 
   void togglePlayPause() {
-    if (videoPlayerController.value?.value.isPlaying ?? false) {
-      videoPlayerController.value?.pause();
-    } else {
-      videoPlayerController.value?.play();
-    }
+    final controller = videoPlayerController.value;
+    if (controller == null) return;
+    controller.value.isPlaying ? controller.pause() : controller.play();
   }
 
   void toggleInterface() {
-    if (playerVisible.value == PlayerVisible.hidden) {
-      playerVisible.value = PlayerVisible.visible;
-      idleInterface();
-    } else {
-      playerVisible.value = PlayerVisible.hidden;
+    playerVisible.value = playerVisible.value == PlayerVisible.hidden
+        ? PlayerVisible.visible
+        : PlayerVisible.hidden;
+    if (playerVisible.value == PlayerVisible.visible) {
+      _idleInterface();
     }
   }
 
@@ -97,45 +95,46 @@ class WatchMovieController extends GetxController {
   }
 
   double getWidth(BuildContext context) {
-    if (videoHeight.value! > 10 && videoWidth.value! > 10) {
-      if (playerFill.value == PlayerFill.cover) {
-        return MediaQuery.of(context).size.width;
-      } else if (playerFill.value == PlayerFill.fill) {
-        return MediaQuery.of(context).size.width;
-      }
-
-      if (videoWidth.value! > videoHeight.value!) {
-        double proportion =
-            MediaQuery.of(context).size.height / videoHeight.value!.toDouble();
-        return videoWidth.value!.toDouble() * (proportion + 0);
-      } else {
-        return MediaQuery.of(context).size.width;
+    final width = videoWidth.value;
+    final height = videoHeight.value;
+    if (height > 10 && width > 10) {
+      switch (playerFill.value) {
+        case PlayerFill.cover:
+        case PlayerFill.fill:
+          return MediaQuery.of(context).size.width;
+        default:
+          if (width > height) {
+            final proportion = MediaQuery.of(context).size.height / height;
+            return width * proportion;
+          }
+          return MediaQuery.of(context).size.width;
       }
     }
     return 10;
   }
 
   double getHeight(BuildContext context) {
-    if (videoHeight.value! > 10 && videoWidth.value! > 10) {
-      if (playerFill.value == PlayerFill.cover) {
-        return videoHeight.value!.toDouble();
-      } else if (playerFill.value == PlayerFill.fill) {
-        return MediaQuery.of(context).size.height;
-      }
-      if (videoWidth.value! > videoHeight.value!) {
-        double proportion =
-            MediaQuery.of(context).size.width / videoWidth.value!.toDouble();
-        return videoHeight.value!.toDouble() * (proportion - 0.12);
-      } else {
-        return videoWidth.value!.toDouble();
+    final width = videoWidth.value;
+    final height = videoHeight.value;
+    if (height > 10 && width > 10) {
+      switch (playerFill.value) {
+        case PlayerFill.cover:
+          return height.toDouble();
+        case PlayerFill.fill:
+          return MediaQuery.of(context).size.height;
+        default:
+          if (width > height) {
+            final proportion = MediaQuery.of(context).size.width / width;
+            return height * (proportion - 0.12);
+          }
+          return width.toDouble();
       }
     }
     return 10;
   }
 
   String getCurrentPosition() {
-    final position =
-        videoPlayerController.value?.value.position ?? Duration.zero;
+    final position = videoPlayerController.value?.value.position ?? Duration.zero;
     currentPosition.value = position;
     return formatDuration(position);
   }
@@ -147,8 +146,7 @@ class WatchMovieController extends GetxController {
     return '$minutes:$seconds';
   }
 
-  void idleInterface() {
-    // Store the timer so it can be cancelled later
+  void _idleInterface() {
     _idleTimer?.cancel();
     _idleTimer = Timer(const Duration(seconds: 3), () {
       playerVisible.value = PlayerVisible.hidden;
@@ -157,50 +155,60 @@ class WatchMovieController extends GetxController {
 
   @override
   void onClose() {
-    setVertical();
+    _setVertical();
     videoPlayerController.value?.pause();
     videoPlayerController.value?.dispose();
+    _idleTimer?.cancel();
     super.onClose();
   }
 
   void forward() {
-    videoPlayerController.value?.seekTo(
-      (currentPosition.value ?? Duration.zero) + const Duration(seconds: 15),
-    );
+    seekTo((currentPosition.value) + const Duration(seconds: 15));
   }
 
   void rewind() {
-    videoPlayerController.value?.seekTo(
-      (currentPosition.value ?? Duration.zero) - const Duration(seconds: 15),
-    );
+    seekTo((currentPosition.value) - const Duration(seconds: 15));
   }
 
   void toggleFullScreen() {
-    if (playerFill.value == PlayerFill.contain) {
-      playerFill.value = PlayerFill.cover;
-    } else if (playerFill.value == PlayerFill.cover) {
-      playerFill.value = PlayerFill.fill;
-    } else {
-      playerFill.value = PlayerFill.contain;
+    switch (playerFill.value) {
+      case PlayerFill.contain:
+        playerFill.value = PlayerFill.cover;
+        break;
+      case PlayerFill.cover:
+        playerFill.value = PlayerFill.fill;
+        break;
+      case PlayerFill.fill:
+        playerFill.value = PlayerFill.contain;
+        break;
+      default:
+        throw UnimplementedError();
     }
-    print("Player fill mode changed to: ${playerFill.value}");
   }
 
   void toggleConfig() {
-    if (configVisible.value == PlayerVisible.hidden) {
-      configVisible.value = PlayerVisible.visible;
-    } else {
-      configVisible.value = PlayerVisible.hidden;
-    }
+    configVisible.value = configVisible.value == PlayerVisible.hidden
+        ? PlayerVisible.visible
+        : PlayerVisible.hidden;
   }
 
   void toggleComments() {
-    if (commentsVisible.value == PlayerVisible.hidden) {
-      commentsVisible.value = PlayerVisible.visible;
+    commentsVisible.value = commentsVisible.value == PlayerVisible.hidden
+        ? PlayerVisible.visible
+        : PlayerVisible.hidden;
+    if (commentsVisible.value == PlayerVisible.visible) {
       _idleTimer?.cancel();
+      if (comments.value.isEmpty) {
+        loadComments();
+      }
     } else {
-      commentsVisible.value = PlayerVisible.hidden;
-      idleInterface();
+      _idleInterface();
     }
+  }
+
+  Future<void> loadComments() async {
+    print("aqui");
+    final token = await firebaseAuthService.getAuthToken() ?? '';
+    comments.value = await api.getComments(token, movie!.id);
   }
 }

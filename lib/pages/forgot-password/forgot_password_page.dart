@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:loomi_chalenge/components/animated_spacer.dart';
 import 'package:loomi_chalenge/components/custom_text_button.dart';
 import 'package:loomi_chalenge/components/custom_text_field.dart';
-import 'package:loomi_chalenge/components/cutom_button.dart';
+import 'package:loomi_chalenge/components/custom_button.dart';
 import 'package:loomi_chalenge/controllers/forgot_password_controller.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/utils/field_masks.dart';

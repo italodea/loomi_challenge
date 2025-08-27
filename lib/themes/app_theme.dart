@@ -13,7 +13,7 @@ class AppTheme {
   static const errorColor = Color(0xFFFF4D4D);
 
   static const textColor = Colors.white;
-  static const textColorDark = Color(0xFF86878B);
+  static const textDarkColor = Color(0xFF86878B);
 
   static ThemeData get theme {
     return ThemeData(
@@ -115,7 +115,7 @@ class AppTheme {
       labelSmall: TextStyle(
         color: AppTheme.textColor,
         fontSize: 12,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
       ),
     );
   }
@@ -141,9 +141,9 @@ class AppTheme {
       ),
       filled: true,
       fillColor: backgroundInputColor,
-      suffixIconColor: AppTheme.textColorDark,
+      suffixIconColor: AppTheme.textDarkColor,
       hintStyle: textThemeSecondary.bodyMedium!.copyWith(
-        color: AppTheme.textColorDark,
+        color: AppTheme.textDarkColor,
       ),
       errorStyle: textThemeSecondary.bodySmall!.copyWith(
         color: AppTheme.errorColor,

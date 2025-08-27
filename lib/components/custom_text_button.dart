@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loomi_chalenge/themes/app_theme.dart';
 
 class CustomTextButton extends StatefulWidget {
   const CustomTextButton({

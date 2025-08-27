@@ -8,6 +8,7 @@ import 'package:loomi_chalenge/components/loading_effect.dart';
 import 'package:loomi_chalenge/controllers/home_controller.dart';
 import 'package:loomi_chalenge/themes/app_icons.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
+import 'package:loomi_chalenge/utils/time_convert.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MoviePosterFooter extends StatefulWidget {
@@ -91,7 +92,7 @@ class _MoviePosterFooterState extends State<MoviePosterFooter> {
                   LoadingEffect(
                     loaded: controller.getCurrentMovie() != null,
                     child: Text(
-                      formattedEndDate,
+                      TimeConvert.formatTextDate(controller.getCurrentMovie()?.endDate != null ? DateTime.parse(controller.getCurrentMovie()!.endDate.toString()) : DateTime.now()),
                       style: AppTheme.textThemeSecondary.titleMedium?.copyWith(
                         color: AppTheme.activeBorderColor,
                         fontSize: 12,

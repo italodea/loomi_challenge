@@ -4,7 +4,7 @@ class UserAuth extends User {
   final String accessToken;
   final String refreshToken;
 
-  UserAuth(this.accessToken, this.refreshToken, {required super.id, required super.username, required super.email, required super.firstName, required super.lastName, required super.gender, required super.image});
+  UserAuth(this.accessToken, this.refreshToken, {required super.id, required super.username, required super.email});
 
   @override
   Map<String, dynamic> toJson() {
@@ -21,10 +21,6 @@ class UserAuth extends User {
       id: json['id'],
       username: json['username'],
       email: json['email'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      gender: json['gender'],
-      image: json['image'],
     );
   }
 

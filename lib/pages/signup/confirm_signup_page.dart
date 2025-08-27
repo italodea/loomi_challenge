@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:loomi_chalenge/components/custom_image_picker_modal.dart';
 import 'package:loomi_chalenge/components/custom_text_button.dart';
 import 'package:loomi_chalenge/components/custom_text_field.dart';
-import 'package:loomi_chalenge/components/cutom_button.dart';
+import 'package:loomi_chalenge/components/custom_button.dart';
 import 'package:loomi_chalenge/components/upload_button.dart';
 import 'package:loomi_chalenge/controllers/signup_controller.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
@@ -12,7 +12,7 @@ import 'package:loomi_chalenge/utils/field_validatons.dart';
 class ConfirmSignupPage extends StatefulWidget {
   ConfirmSignupPage({super.key});
 
-  final SignupController controller = Get.put(SignupController());
+  final SignupController controller = Get.find<SignupController>();
 
   @override
   State<ConfirmSignupPage> createState() => _ConfirmSignupPageState();

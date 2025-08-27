@@ -1,4 +1,5 @@
 import 'package:loomi_chalenge/repositories/dio/base_request.dart';
+import 'package:loomi_chalenge/repositories/models/data/comment.dart';
 import 'package:loomi_chalenge/repositories/models/data/movie.dart';
 import 'package:loomi_chalenge/repositories/models/data/user.dart';
 import 'package:loomi_chalenge/repositories/models/dto/user_auth.dart';
@@ -33,11 +34,11 @@ class CustomAPI extends BaseRequest {
     return UserAuth.fromJson(response);
   }
 
-  Future<void> register(String username, String email, String password, String firebaseUID) async {
-    var data = await post("/auth/local/register", data: {
+  Future<void> register(String token, String username, String email, String firebaseUID) async {
+    setAuthorization(token);
+    await post("/auth/local/register", data: {
       "username": username,
       "email": email,
-      "password": password,
       "firebase_UID": firebaseUID
     });
   }
@@ -47,5 +48,12 @@ class CustomAPI extends BaseRequest {
     List<dynamic> moviesList = await get("/movies");
 
     return moviesList.map((movie) => Movie.fromJson(movie)).toList();
+  }
+
+  Future<List<Comment>> getComments(String token, int id) async {
+    setAuthorization(token);
+    List<dynamic> commentsList = await get("/comments/$id");
+
+    return commentsList.map((comment) => Comment.fromJson(comment)).toList();
   }
 }

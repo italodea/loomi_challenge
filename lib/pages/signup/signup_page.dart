@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:loomi_chalenge/components/custom_divider.dart';
 import 'package:loomi_chalenge/components/custom_text_button.dart';
 import 'package:loomi_chalenge/components/custom_text_field.dart';
-import 'package:loomi_chalenge/components/cutom_button.dart';
+import 'package:loomi_chalenge/components/custom_button.dart';
 import 'package:loomi_chalenge/components/social_icon_apple.dart';
 import 'package:loomi_chalenge/components/social_icon_google.dart';
 import 'package:loomi_chalenge/controllers/signup_controller.dart';

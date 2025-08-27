@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           HomeBackground(),
           Padding(
-            padding: const EdgeInsets.only(right: 12, left: 12, top: 70),
+            padding: EdgeInsets.only(right: 12, left: 12, top: MediaQuery.of(context).padding.top + 10),
             child: Obx(() {
               if (_controller.movies.isEmpty) {}
               return Column(

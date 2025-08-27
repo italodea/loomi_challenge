@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:loomi_chalenge/components/animated_spacer.dart';
-import 'package:loomi_chalenge/components/cutom_button.dart';
+import 'package:loomi_chalenge/components/custom_button.dart';
 
 class EmailSent extends StatefulWidget {
   const EmailSent({super.key});

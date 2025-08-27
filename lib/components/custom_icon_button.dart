@@ -47,7 +47,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
                 child: Text(
                   widget.label!,
                   style: widget.textStyle ?? AppTheme.textThemeSecondary.bodyLarge!.copyWith(
-                    color: AppTheme.textColorDark,
+                    color: AppTheme.textDarkColor,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,

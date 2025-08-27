@@ -62,7 +62,7 @@ class PlayerInterface extends StatelessWidget {
                           SizedBox(width: 12),
                           PlayerButton(
                             icon: AppIcons.comment,
-                            label: "Comments ${controller.movie?.commentsCount ?? 0}",
+                            label: "Comments ${controller.movie?.commentsCount}",
                             onPressed: () async {
                               controller.toggleComments();
                             },
@@ -110,10 +110,10 @@ class PlayerInterface extends StatelessWidget {
                     Expanded(
                       child: Slider(
                         value:
-                            (controller.currentPosition.value?.inSeconds ?? 0)
+                            (controller.currentPosition.value.inSeconds)
                                 .toDouble(),
                         min: 0,
-                        max: (controller.totalDuration.value?.inSeconds ?? 1)
+                        max: (controller.totalDuration.value.inSeconds)
                             .toDouble(),
                         onChanged: (value) {
                           controller.seekTo(Duration(seconds: value.toInt()));

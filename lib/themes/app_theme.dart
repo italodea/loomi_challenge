@@ -15,6 +15,17 @@ class AppTheme {
   static const textColor = Colors.white;
   static const textDarkColor = Color(0xFF86878B);
 
+  static const listProfileColors = [
+    Color(0xFFBC4CF1),
+    Color(0xFF351F43),
+    Color(0xFFFFEB3B),
+    Color(0xFF2196F3),
+    Color(0xFFFF9800),
+    Color(0xFFE91E63),
+    Color(0xFF795548),
+    Color(0xFF4CAF50),
+  ];
+
   static ThemeData get theme {
     return ThemeData(
       scaffoldBackgroundColor: backgroundColor,

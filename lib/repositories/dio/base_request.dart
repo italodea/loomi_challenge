@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 class BaseRequest {
@@ -23,6 +25,18 @@ class BaseRequest {
   Future<Map<String, dynamic>> post(String endpoint, {Map<String, dynamic>? data}) async {
     try {
       final response = await _dio.post('$baseUrl$endpoint', data: data);
+      return response.data;
+    } catch (e) {
+      return {'error': e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> postFile(String endpoint, {required File file}) async {
+    try {
+      final formData = FormData.fromMap({
+        "file": await MultipartFile.fromFile(file.path),
+      });
+      final response = await _dio.post('$baseUrl$endpoint', data: formData);
       return response.data;
     } catch (e) {
       return {'error': e.toString()};

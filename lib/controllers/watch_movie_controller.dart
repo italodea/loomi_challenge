@@ -210,7 +210,6 @@ class WatchMovieController extends GetxController {
   }
 
   Future<void> loadComments() async {
-    print("aqui");
     final token = await firebaseAuthService.getAuthToken() ?? '';
     comments.value = await api.getComments(token, movie!.id);
   }

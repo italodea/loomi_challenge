@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,6 +21,7 @@ class HomeController extends GetxController {
   final Rx<PlayerStatus> playerStatus = PlayerStatus.paused.obs;
   final Rxn<VideoPlayerController> videoPlayerController = Rxn<VideoPlayerController>();
   final RxInt currentIndex = 0.obs;
+  final Rxn<User> user = Rxn<User>();
 
   @override
   void onInit() {
@@ -34,6 +38,11 @@ class HomeController extends GetxController {
     if (!isAuth) {
       Get.offAllNamed('/login');
     }
+    await authService.getCurrentUser().then((user) {
+      if (user != null) {
+        this.user.value = user;
+      }
+    });
   }
 
   Future<void> getMovies() async {
@@ -49,7 +58,7 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       // Handle error, e.g. show snackbar
-      print('Error fetching movies: $e');
+      log('Error fetching movies: $e');
     }
   }
 
@@ -116,7 +125,7 @@ class HomeController extends GetxController {
     if (token != null) {
       final tokenParts = token.split('.');
       for (var part in tokenParts) {
-        print(part);
+        log(part);
       }
     }
   }

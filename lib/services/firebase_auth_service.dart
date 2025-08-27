@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loomi_chalenge/errors/custom_exception.dart';
 
@@ -72,6 +75,14 @@ class FirebaseAuthService {
     }
   }
 
+  Future<User?> getCurrentUser() async {
+    try {
+      return firebaseAuth.currentUser;
+    } catch (e) {
+      throw CustomException(e);
+    }
+  }
+
   Future<void> changePassword(
       String currentPassword, String newPassword) async {
     try {
@@ -97,6 +108,17 @@ class FirebaseAuthService {
     try {
       await firebaseAuth.currentUser!.updateDisplayName(displayName.trim());
       await firebaseAuth.currentUser!.reload();
+    } catch (e) {
+      throw CustomException(e);
+    }
+  }
+
+  Future<void> updatePhotoFile(File file) async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref().child('user_photos/${firebaseAuth.currentUser!.uid}');
+      await storageRef.putFile(file);
+      final photoURL = await storageRef.getDownloadURL();
+      await firebaseAuth.currentUser!.updatePhotoURL(photoURL);
     } catch (e) {
       throw CustomException(e);
     }

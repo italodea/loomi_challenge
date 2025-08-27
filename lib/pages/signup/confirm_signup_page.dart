@@ -82,19 +82,13 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
                   SizedBox(height: 50),
                   CustomButton(
                     label: "Continue",
-                    onPressed: () async {
-                      if (widget.controller.completeSignUpFormKey.currentState!.validate()) {
-                        await widget.controller.registerWithEmailAndPassword();
-
-                        Get.offAllNamed(AppRoutes.home);
-                      }
-                    },
+                    onPressed: widget.controller.completeSignUp,
                   ),
                   SizedBox(height: 20),
                   CustomTextButton(
                     label: "Back",
                     onPressed: () {
-                      Get.back();
+                      Get.toNamed(AppRoutes.login);
                     },
                   ),
                 ],

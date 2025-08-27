@@ -43,8 +43,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Center(
                         child: InkWell(
-                          child: CustomCircleAvatar(),
                           onTap: _controller.logout,
+                          child: CustomCircleAvatar(
+                            imageUrl: _controller.user.value?.photoURL,
+                            userName: _controller.user.value?.displayName ?? 'U',
+                          ),
                         ),
                       ),
                     ],

@@ -9,10 +9,12 @@ class PlayerButton extends StatelessWidget {
     this.label,
     required this.onPressed,
     this.size = 30,
+    this.color = AppTheme.textColor,
   });
   final String icon;
   final double size;
   final String? label;
+  final Color? color;
   final Future<void> Function() onPressed;
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class PlayerButton extends StatelessWidget {
       onTap: onPressed,
       child: Row(
         children: [
-          AppIcons.icon(icon, size: size),
+          AppIcons.icon(icon, size: size, color: color),
           if (label != null) ...[
             SizedBox(width: 8),
             Text(label!, style: AppTheme.textThemeSecondary.displaySmall),

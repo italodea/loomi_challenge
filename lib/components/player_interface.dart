@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loomi_chalenge/components/custom_icon_button.dart';
 import 'package:loomi_chalenge/components/player_button.dart';
 import 'package:loomi_chalenge/controllers/watch_movie_controller.dart';
+import 'package:loomi_chalenge/repositories/models/const/player_status.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_visible.dart';
 import 'package:loomi_chalenge/themes/app_icons.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
@@ -87,7 +88,8 @@ class PlayerInterface extends StatelessWidget {
                         onPressed: () async {
                           controller.togglePlayPause();
                         },
-                        icon: AppIcons.pause,
+
+                        icon: controller.isPlaying.value == PlayerStatus.paused ? AppIcons.play : AppIcons.pause,
                         size: 60,
                       ),
                       SizedBox(width: 40),

@@ -6,6 +6,7 @@ class AppIcons {
   static const String gallery = 'assets/icons/gallery.svg';
   static const String like = 'assets/icons/like.svg';
   static const String send = 'assets/icons/send.svg';
+  static const String play = 'assets/icons/play.svg';
   static const String pause = 'assets/icons/pause.svg';
   static const String backward = 'assets/icons/backward_15.svg';
   static const String forward = 'assets/icons/forward_15.svg';

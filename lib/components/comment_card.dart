@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loomi_chalenge/controllers/comment_card_controller.dart';
 import 'package:loomi_chalenge/repositories/models/data/comment.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
 import 'package:loomi_chalenge/utils/time_convert.dart';
@@ -10,6 +12,7 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CommentCardController controller = Get.put(CommentCardController(), tag: comment?.id.toString());
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -42,22 +45,37 @@ class CommentCard extends StatelessWidget {
                   style: AppTheme.textThemeSecondary.bodyLarge,
                 ),
                 SizedBox(height: 4),
-                comment!.replies.isNotEmpty
-                    ? Row(
+                if (comment!.replies.isNotEmpty)
+                  GestureDetector(
+                    onTap: controller.toggleExpanded,
+                    child: Row(
+                      children: [
+                        Obx(() => Icon(
+                              controller.isExpanded.value
+                                  ? Icons.arrow_drop_up_rounded
+                                  : Icons.arrow_drop_down_rounded,
+                              color: AppTheme.activeBorderColor,
+                              size: 36,
+                            )),
+                        Text(
+                          controller.isExpanded.value
+                              ? "Hide Replies"
+                              : "View ${comment!.replies.length} Replies",
+                          style: AppTheme.textThemeSecondary.displayMedium?.copyWith(color: AppTheme.activeBorderColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                Obx(() => controller.isExpanded.value
+                    ? Column(
                         children: [
-                          Icon(
-                            Icons.arrow_drop_down_rounded,
-                            color: AppTheme.activeBorderColor,
-                            size: 36,
-                          ),
-                          Text(
-                            "View ${comment!.replies.length} Replies",
-                            style: AppTheme.textThemeSecondary.displayMedium
-                                ?.copyWith(color: AppTheme.activeBorderColor),
-                          ),
+                          ...comment!.replies.map((reply) => Padding(
+                                padding: const EdgeInsets.only(left: 24.0, top: 8.0),
+                                child: CommentCard(comment: reply),
+                              ))
                         ],
                       )
-                    : Container(),
+                    : Container()),
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class TimeConvert {
   
 
@@ -18,6 +20,15 @@ class TimeConvert {
       return '${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''} ago';
     } else {
       return 'just now';
+    }
+  }
+
+  static String formatTextDate(DateTime? date) {
+    if (date == null) return '????';
+    try {
+      return DateFormat("MMM dd, yyyy").format(date);
+    } catch (_) {
+      return '???';
     }
   }
 }

@@ -30,7 +30,7 @@ class PlayerComments extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "${controller.comments.value.length} Comments",
+                    "${controller.movie?.commentsCount ?? 0} Comments",
                     style: AppTheme.textThemeSecondary.displayLarge,
                   ),
                   CustomTextButton(

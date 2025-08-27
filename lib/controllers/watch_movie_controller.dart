@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loomi_chalenge/repositories/dio/api.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_fill.dart';
+import 'package:loomi_chalenge/repositories/models/const/player_status.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_visible.dart';
 import 'package:loomi_chalenge/repositories/models/data/comment.dart';
 import 'package:loomi_chalenge/repositories/models/data/movie.dart';
@@ -23,6 +24,7 @@ class WatchMovieController extends GetxController {
   final playerVisible = Rx<PlayerVisible>(PlayerVisible.hidden);
   final configVisible = Rx<PlayerVisible>(PlayerVisible.hidden);
   final commentsVisible = Rx<PlayerVisible>(PlayerVisible.hidden);
+  final isPlaying = Rx<PlayerStatus>(PlayerStatus.playing);
 
   final videoWidth = Rx<int>(0);
   final videoHeight = Rx<int>(0);
@@ -79,6 +81,7 @@ class WatchMovieController extends GetxController {
     final controller = videoPlayerController.value;
     if (controller == null) return;
     controller.value.isPlaying ? controller.pause() : controller.play();
+    isPlaying.value = controller.value.isPlaying ? PlayerStatus.playing : PlayerStatus.paused;
   }
 
   void toggleInterface() {

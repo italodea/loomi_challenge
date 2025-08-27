@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:loomi_chalenge/repositories/dio/api.dart';
@@ -24,6 +25,8 @@ class HomeController extends GetxController {
 
     super.onInit();
     getMovies();
+    // set orientation to landscape
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
   void _checkAuth() async {

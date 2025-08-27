@@ -5,6 +5,7 @@ import 'package:loomi_chalenge/components/custom_circle_avatar.dart';
 import 'package:loomi_chalenge/components/home_background.dart';
 import 'package:loomi_chalenge/components/movie_poster_component.dart';
 import 'package:loomi_chalenge/controllers/home_controller.dart';
+import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/themes/app_theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,7 +44,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Center(
                         child: InkWell(
-                          onTap: _controller.logout,
+                          // onTap: _controller.logout,
+                          onTap: (){
+                            Get.toNamed(AppRoutes.profile);
+                          },
                           child: CustomCircleAvatar(
                             imageUrl: _controller.user.value?.photoURL,
                             userName: _controller.user.value?.displayName ?? 'U',

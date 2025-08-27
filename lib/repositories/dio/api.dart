@@ -42,7 +42,7 @@ class CustomAPI extends BaseRequest {
     return commentsList.map((comment) => Comment.fromJson(comment)).toList();
   }
 
-  Future<User> updateMe(
+  Future<void> updateMe(
     String token, {
     String? username,
     String? email,
@@ -50,7 +50,7 @@ class CustomAPI extends BaseRequest {
   }) async {
     try {
       setAuthorization(token);
-      final response = await patch(
+      await patch(
         "/users/updateMe",
         data: {
           if (username != null) "username": username,
@@ -59,8 +59,6 @@ class CustomAPI extends BaseRequest {
             "finished_onboarding": finishedOnboarding,
         },
       );
-
-      return User.fromJson(response);
     } catch (e) {
       throw CustomException(e);
     }

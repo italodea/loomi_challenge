@@ -16,6 +16,7 @@ class AppIcons {
   static const String trash = 'assets/icons/trash.svg';
   static const String report = 'assets/icons/report.svg';
   static const String comment = 'assets/icons/comment.svg';
+  static const String shield = 'assets/icons/shield.svg';
 
   static Widget icon(
     String assetPath, {

@@ -10,6 +10,8 @@ class FirebaseHandler {
         return 'Network error. Please try again.';
       case 'email-already-in-use':
         return 'Email is already in use.';
+      case 'requires-recent-login':
+        return 'This operation requires recent authentication. Please log in again.';
       default:
         return 'An unknown error occurred.';
     }

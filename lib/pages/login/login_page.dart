@@ -47,13 +47,13 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20),
                   Text(
                     "Welcome Back",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).primaryTextTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
                   Text(
                     "Look who is here!",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).primaryTextTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 30),
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         "Don't have an account?",
-                        style: Theme.of(context).textTheme.bodyLarge!
+                        style: Theme.of(context).primaryTextTheme.bodyLarge!
                             .copyWith(
                               color: AppTheme.secondaryDarkColor,
                             ),

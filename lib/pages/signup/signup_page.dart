@@ -118,13 +118,8 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 20),
                   CustomButton(
                     label: "Create Account",
-                    onPressed: () async {
-                      if (_signupController.formKey.currentState!.validate()) {
-                        Get.toNamed(
-                          AppRoutes.confirmSignup,
-                        );
-                      }
-                    },
+                    onPressed:
+                      _signupController.signUp,
                   ),
                   SizedBox(
                     height: 20,

@@ -39,7 +39,7 @@ class Movie {
       lastComment: json['lastComment'] != null
           ? Comment.fromJson(json['lastComment'])
           : null,
-          commentsCount: json['commentsCount'] as int,
+      commentsCount: int.parse(json['commentsCount']),
     );
   }
 }

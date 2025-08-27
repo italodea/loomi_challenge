@@ -9,6 +9,7 @@ import 'package:loomi_chalenge/repositories/dio/api.dart';
 import 'package:loomi_chalenge/routes/app_routes.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:loomi_chalenge/utils/file_util.dart';
 
 class SignupController extends GetxController {
   final GetStorage _storage = GetStorage();
@@ -26,13 +27,26 @@ class SignupController extends GetxController {
   final List<File> userImage = <File>[].obs;
 
   Future<void> signInWithGoogle() async {
-    UserCredential? user = await _authService.googleSignIn();
-    if (user != null) {
-      String token = await _authService.getAuthToken() ?? "";
-      if (token.isNotEmpty) {
-        await _storage.write('accessToken', token);
-        Get.offAllNamed(AppRoutes.home);
+    try {
+      UserCredential? user = await _authService.googleSignIn();
+      if (user != null) {
+        String token = await _authService.getAuthToken() ?? "";
+        if (token.isNotEmpty) {
+          await _storage.write('accessToken', token);
+          userNameController.text = user.user?.displayName ?? '';
+          userImage.clear();
+          if (user.user?.photoURL != null) {
+            if (user.user!.photoURL!.isNotEmpty) {
+              File file = await FileUtil.downloadFile(user.user!.photoURL!);
+              userImage.add(file);
+            }
+          }
+          Get.offAllNamed(AppRoutes.confirmSignup);
+        }
       }
+    } catch (e) {
+      GetStorage().erase();
+      throw CustomException(e);
     }
   }
 
@@ -43,8 +57,9 @@ class SignupController extends GetxController {
         passwordController.text,
       );
 
-      await _authService.updateDisplayName(userNameController.text);
-      String token =  await _authService.getAuthToken() ?? "";
+      String token = await _authService.getAuthToken() ?? "";
+
+      userNameController.text = emailController.text.split('@').first;
 
       await customAPI.register(
         token,
@@ -52,7 +67,6 @@ class SignupController extends GetxController {
         emailController.text,
         user.user?.uid ?? "",
       );
-
 
       if (token.isNotEmpty) {
         _storage.write('accessToken', token);
@@ -64,6 +78,7 @@ class SignupController extends GetxController {
 
   Future<void> pickImageFromGallery() async {
     try {
+      userImage.clear();
       final pickedFile = await _imagePicker.pickImage(
         source: ImageSource.gallery,
       );
@@ -78,6 +93,7 @@ class SignupController extends GetxController {
 
   Future<void> pickImageFromCamera() async {
     try {
+      userImage.clear();
       final pickedFile = await _imagePicker.pickImage(
         source: ImageSource.camera,
       );
@@ -85,6 +101,49 @@ class SignupController extends GetxController {
         userImage.add(File(pickedFile.path));
       }
       Get.back();
+    } catch (e) {
+      throw CustomException(e);
+    }
+  }
+
+  Future<void> getCurrentUser() async {
+    final token = await _authService.getAuthToken();
+    if (token != null) {
+      final tokenParts = token.split('.');
+      for (var part in tokenParts) {
+        print(part);
+      }
+    }
+  }
+
+  Future<void> signUp() async {
+    if (formKey.currentState!.validate()) {
+      await registerWithEmailAndPassword();
+      Get.toNamed(AppRoutes.confirmSignup);
+    }
+  }
+
+  Future<void> completeSignUp() async {
+    try {
+      await getCurrentUser();
+      if (completeSignUpFormKey.currentState!.validate()) {
+        if (userImage.isNotEmpty) {
+          String url = await customAPI.uploadProfilePicture(
+            _storage.read('accessToken'),
+            userImage.first,
+          );
+          await _authService.updatePhotoURL(url);
+        }
+        await _authService.updateDisplayName(userNameController.text);
+
+        await customAPI.updateMe(
+          _storage.read('accessToken'),
+          username: userNameController.text,
+          email: emailController.text,
+          finishedOnboarding: true,
+        );
+        Get.offAllNamed(AppRoutes.home);
+      }
     } catch (e) {
       throw CustomException(e);
     }

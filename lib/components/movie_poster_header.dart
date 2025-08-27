@@ -102,7 +102,7 @@ class _MoviePosterHeaderState extends State<MoviePosterHeader> {
                           ),
                         ),
                         SizedBox(height: 10),
-                        Row(
+                        movie?.lastComment != null ? Row(
                           children: [
                             LoadingEffect(
                               loaded: widget.controller.getCurrentMovie() != null,
@@ -132,7 +132,7 @@ class _MoviePosterHeaderState extends State<MoviePosterHeader> {
                             ),
                             SizedBox(width: 20,),
                           ],
-                        ),
+                        ) : Container(),
                         SizedBox(height: 30),
                         Center(
                           child: LoadingEffect(

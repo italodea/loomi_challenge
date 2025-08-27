@@ -11,7 +11,7 @@ class AppTheme {
   static const borderColor = Color(0xFF6C6D7A);
   static const activeBorderColor = Color(0xFFAA73F0);
   static const errorColor = Color(0xFFFF4D4D);
-
+  static const darker = Color(0xFF30303B);
   static const textColor = Colors.white;
   static const textDarkColor = Color(0xFF86878B);
 

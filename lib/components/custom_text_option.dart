@@ -6,14 +6,17 @@ class CustomTextOption extends StatelessWidget {
     super.key,
     required this.label,
     this.selected = false,
+    this.onPressed,
   });
 
   final String label;
   final bool selected;
+  final Future<void> Function()? onPressed;
+  
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onPressed,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 4),
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),

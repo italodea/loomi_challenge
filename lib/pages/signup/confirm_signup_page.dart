@@ -43,13 +43,13 @@ class _ConfirmSignupPageState extends State<ConfirmSignupPage> {
                   SizedBox(height: 20),
                   Text(
                     "Tell us more!",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).primaryTextTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
                   Text(
                     "Complete your profile",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).primaryTextTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 50),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:loomi_chalenge/components/dot_loading_indicator.dart';
 import 'package:loomi_chalenge/components/player_comments.dart';
 import 'package:loomi_chalenge/components/player_config.dart';
 import 'package:loomi_chalenge/components/player_interface.dart';
@@ -66,7 +67,7 @@ class _WatchMoviePageState extends State<WatchMoviePage> {
           ],
         );
       } else {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: DotLoadingIndicator());
       }
     });
   }

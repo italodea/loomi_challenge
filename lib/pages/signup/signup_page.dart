@@ -50,7 +50,7 @@ class _SignupPageState extends State<SignupPage> {
                     children: [
                       Text(
                         "Already have an account?",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
                           color: AppTheme.secondaryDarkColor,
                         ),
                       ),
@@ -65,13 +65,13 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 40),
                   Text(
                     "Create Account",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).primaryTextTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
                   Text(
                     "To get started, please complete your account registration.",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).primaryTextTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),

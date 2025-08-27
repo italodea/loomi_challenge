@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:loomi_chalenge/pages/forgot-password/email_sent_page.dart';
 import 'package:loomi_chalenge/pages/home/home_page.dart';
+import 'package:loomi_chalenge/pages/profile/profile_page.dart';
 import 'package:loomi_chalenge/pages/signup/confirm_signup_page.dart';
 import 'package:loomi_chalenge/pages/forgot-password/forgot_password_page.dart';
 import 'package:loomi_chalenge/pages/login/login_page.dart';
@@ -16,6 +17,7 @@ class AppRoutes {
   static const signup = '/signup';
   static const confirmSignup = '/confirm-signup';
   static const watchMovie = '/watch-movie';
+  static const profile = '/profile';
 
   // Centralized list of all routes
   static final List<GetPage> routes = [
@@ -37,7 +39,7 @@ class AppRoutes {
     GetPage(
       name: confirmSignup,
       transition: Transition.fadeIn,
-      page: () => ConfirmSignupPage(), // Replace with actual user ID
+      page: () => ConfirmSignupPage(),
     ),
     GetPage(
       name: emailSent,
@@ -53,6 +55,11 @@ class AppRoutes {
       name: watchMovie,
       page: () => const WatchMoviePage(),
       transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: profile,
+      page: () => ProfilePage(),
+      transition: Transition.downToUp,
     ),
   ];
 

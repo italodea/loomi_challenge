@@ -12,7 +12,10 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CommentCardController controller = Get.put(CommentCardController(), tag: comment?.id.toString());
+    final controller = Get.put(
+      CommentCardController(),
+      tag: comment?.id?.toString() ?? UniqueKey().toString(),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -22,7 +25,7 @@ class CommentCard extends StatelessWidget {
           CircleAvatar(
             maxRadius: 20,
             child: Text(
-              comment?.user?.username.split('').first.toUpperCase() ?? '',
+              comment?.authorName?.split('').first.toUpperCase() ?? '',
               style: AppTheme.textThemeSecondary.displayLarge,
             ),
           ),
@@ -32,7 +35,7 @@ class CommentCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  comment?.user?.username ?? '',
+                  comment?.authorName ?? '',
                   style: AppTheme.textThemeSecondary.displayLarge,
                 ),
                 SizedBox(height: 4),

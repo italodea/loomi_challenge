@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:loomi_chalenge/repositories/dio/api.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_fill.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_status.dart';
 import 'package:loomi_chalenge/repositories/models/const/player_visible.dart';
 import 'package:loomi_chalenge/repositories/models/data/comment.dart';
 import 'package:loomi_chalenge/repositories/models/data/movie.dart';
+import 'package:loomi_chalenge/services/comments_service.dart';
 import 'package:loomi_chalenge/services/firebase_auth_service.dart';
 import 'package:video_player/video_player.dart';
 
@@ -29,17 +29,16 @@ class WatchMovieController extends GetxController {
   final videoWidth = Rx<int>(0);
   final videoHeight = Rx<int>(0);
   final playerFill = Rx<PlayerFill>(PlayerFill.contain);
-  final comments = Rx<List<Comment>>([]);
+  final comments = Rx<List<Comment>?>(null);
 
-  final CustomAPI api = CustomAPI();
   final FirebaseAuthService firebaseAuthService = FirebaseAuthService();
-
+  final CommentsService commentsService = CommentsService();
   Timer? _idleTimer;
 
   @override
   void onInit() {
     super.onInit();
-    _setHorizontal();
+    setHorizontal();
     _initializeVideoPlayer();
     _idleInterface();
   }
@@ -63,14 +62,14 @@ class WatchMovieController extends GetxController {
     update();
   }
 
-  void _setHorizontal() {
+  void setHorizontal() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
   }
 
-  void _setVertical() {
+  void setVertical() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -158,7 +157,7 @@ class WatchMovieController extends GetxController {
 
   @override
   void onClose() {
-    _setVertical();
+    setVertical();
     videoPlayerController.value?.pause();
     videoPlayerController.value?.dispose();
     _idleTimer?.cancel();
@@ -196,12 +195,13 @@ class WatchMovieController extends GetxController {
   }
 
   void toggleComments() {
+    setHorizontal();
     commentsVisible.value = commentsVisible.value == PlayerVisible.hidden
         ? PlayerVisible.visible
         : PlayerVisible.hidden;
     if (commentsVisible.value == PlayerVisible.visible) {
       _idleTimer?.cancel();
-      if (comments.value.isEmpty) {
+      if (comments.value?.isEmpty ?? true) {
         loadComments();
       }
     } else {
@@ -210,7 +210,6 @@ class WatchMovieController extends GetxController {
   }
 
   Future<void> loadComments() async {
-    final token = await firebaseAuthService.getAuthToken() ?? '';
-    comments.value = await api.getComments(token, movie!.id);
+    comments.value = await commentsService.getCommentsByMovieId(movie!.id);
   }
 }

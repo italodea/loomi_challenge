@@ -45,13 +45,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   AnimatedSpacer(beginHeight: 50, endHeight: 30),
                   Text(
                     "Forgot Password?",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).primaryTextTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                   AnimatedSpacer(beginHeight: 50, endHeight: 30),
                   Text(
                     "Enter the email address you used when you joined and we’ll send you instructions to reset your password.",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).primaryTextTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                   AnimatedSpacer(beginHeight: 70, endHeight: 40),

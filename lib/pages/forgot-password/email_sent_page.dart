@@ -35,14 +35,14 @@ class _EmailSentState extends State<EmailSent> {
                   width: 250,
                   child: Text(
                     "The instructions were sent!",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).primaryTextTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 AnimatedSpacer(beginHeight: 20, endHeight: 60),
                 Text(
                   "If this was a valid email, instructions to reset your password will be sent to you. Please check your email.",
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).primaryTextTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(

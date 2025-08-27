@@ -109,11 +109,7 @@ class _MoviePosterHeaderState extends State<MoviePosterHeader> {
                               child: CircleAvatar(
                                 maxRadius: 12,
                                 child: Text(
-                                  movie?.lastComment?.user?.username
-                                          .split('')
-                                          .first
-                                          .toUpperCase() ??
-                                      '',
+                                  movie?.lastComment?.authorName?.split('').first.toUpperCase() ?? '',
                                   style: AppTheme.textThemeSecondary.displaySmall,
                                 ),
                               ),
